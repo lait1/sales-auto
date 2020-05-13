@@ -8,17 +8,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-            crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="js/slick/slick.css">
 
     <link rel="stylesheet" href="css/style.css">
+
     <title>Продажа автомобилей</title>
 </head>
 <body>
@@ -38,8 +31,8 @@
         </div>
     </div>
 </header>
-<main>
-    <section class="filter container">
+<main class="container">
+    <section class="filter">
         <div class="filter__select">
             <select class="form-control city">
                 <option selected>Город</option>
@@ -70,7 +63,7 @@
         </div>
 
     </section>
-    <section class="brand container">
+    <section class="brand">
         <h2 class="brand__title">Марки авто</h2>
         <div class="brand__list">
             <a href="#" class="brand__item">
@@ -142,7 +135,7 @@
             </a>
         </div>
     </section>
-    <section class="new-sales container">
+    <section class="new-sales">
         <div class="new-sales__header">
             <h2 class="new-sales__title">Новые объявления</h2>
             <div class="new-sales__arrow">
@@ -190,7 +183,7 @@
             </div>
         </div>
     </section>
-    <section class="article container">
+    <section class="article">
         <h2 class="article__header">Советы</h2>
         <div class="article__content">
             <a href="#" class="article__block big" style='background-image: url("img/bg-example.jpg")'>
@@ -216,5 +209,18 @@
         </div>
     </div>
 </footer>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+<!--<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>-->
+<script type="text/javascript" src="js/slick/slick.min.js"></script>
+
 </body>
 </html>
