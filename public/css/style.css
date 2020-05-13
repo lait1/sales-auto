@@ -1,5 +1,12 @@
 @charset "UTF-8";
+html {
+  height: 100%;
+}
+
 body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   font-family: "Roboto", sans-serif;
   background: #F8FAFC;
 }
@@ -7,6 +14,10 @@ body {
 header {
   background: #fff;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.3), 0 0 1px rgba(0, 0, 0, 0.2);
+}
+
+main {
+  flex: 1 0 auto;
 }
 
 .header {
@@ -234,6 +245,7 @@ footer {
   margin-top: 80px;
   height: 65px;
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   background: #fff;
   font-size: 14px;
@@ -412,6 +424,103 @@ footer {
   color: #fff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.favorite__header {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+}
+.favorite__header-title {
+  font-weight: 500;
+  font-size: 26px;
+}
+.favorite__header-sort {
+  width: 210px;
+}
+
+.catalog {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+}
+.catalog-item {
+  display: flex;
+  margin-bottom: 15px;
+  height: 210px;
+  background: #FFFFFF;
+  box-shadow: 0 0 10px rgba(14, 50, 99, 0.08), 0 0 1px rgba(14, 50, 99, 0.3);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.catalog-item__image {
+  width: 260px;
+  overflow: hidden;
+}
+.catalog-item__image img {
+  height: 100%;
+}
+.catalog-item__desc {
+  width: 560px;
+  padding: 12px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.catalog-item__title {
+  display: flex;
+  justify-content: space-between;
+}
+.catalog-item__title-name {
+  font-weight: 500;
+  font-size: 20px;
+}
+.catalog-item__title-lot {
+  color: #90969D;
+}
+.catalog-item__info {
+  padding-bottom: 4px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.catalog-item__info:last-child {
+  border-bottom: none;
+}
+.catalog-item__action {
+  width: 280px;
+  padding: 16px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.catalog-item__action-delete {
+  color: #90969D;
+  text-align: right;
+}
+.catalog-item__action-delete:hover {
+  text-decoration: none;
+}
+.catalog-item__action-delete .fa {
+  padding-left: 10px;
+}
+.catalog-item__action-cost {
+  font-weight: bold;
+  font-size: 26px;
+}
+.catalog-item__action-details {
+  font-weight: 500;
+  text-align: center;
+  background: #FEDB31;
+  border: 0;
+  border-radius: 4px;
+  padding: 13px;
+  margin-top: 10px;
+}
+.catalog-item__action-details:hover {
+  background: #004584;
+  color: #fff;
+  transition: all 0.3s ease;
 }
 
 /*# sourceMappingURL=style.css.map */
