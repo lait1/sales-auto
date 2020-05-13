@@ -523,4 +523,63 @@ footer {
   transition: all 0.3s ease;
 }
 
+.setting {
+  margin-top: 40px;
+}
+.setting__header {
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 30px;
+}
+.setting__form {
+  margin-top: 25px;
+  padding: 20px;
+  background: #FFFFFF;
+  box-shadow: 0 0 1px rgba(14, 50, 99, 0.3), 0 0 10px rgba(14, 50, 99, 0.08);
+  border-radius: 4px;
+}
+.setting__form .form-control {
+  color: #000;
+  border-color: #fff #fff #ced4da;
+  border-radius: 0;
+}
+.setting__form .form-group {
+  margin-bottom: 2rem;
+}
+.setting__button {
+  display: flex;
+  justify-content: space-between;
+}
+.setting__button-save {
+  width: 50%;
+  font-weight: 500;
+  text-align: center;
+  background: #FEDB31;
+  border: 0;
+  border-radius: 4px;
+  padding: 13px;
+  margin-top: 10px;
+  margin-right: 20px;
+}
+.setting__button-save:hover {
+  background: #004584;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+.setting__button-cancel {
+  width: 50%;
+  font-weight: 500;
+  text-align: center;
+  background: #E2E8EF;
+  border: 0;
+  border-radius: 4px;
+  padding: 13px;
+  margin-top: 10px;
+}
+.setting__button-cancel:hover {
+  background: #004584;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
 /*# sourceMappingURL=style.css.map */
