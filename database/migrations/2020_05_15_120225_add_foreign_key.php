@@ -93,7 +93,7 @@ class AddForeignKey extends Migration
         });
         Schema::table('posts', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')
-                ->on('posts')
+                ->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('set null');
         });

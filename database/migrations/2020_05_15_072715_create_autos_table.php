@@ -26,6 +26,11 @@ class CreateAutosTable extends Migration
             $table->string('price')->nullable();
             $table->text('description')->nullable();
             $table->integer('draft');
+
+            $table->string('keywords')->nullable();
+            $table->string('title')->nullable();
+            $table->string('seo_desc')->nullable();
+
             $table->timestamps();
         });
     }

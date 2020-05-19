@@ -1,0 +1,23 @@
+.box {
+  margin-left: 260px;
+}
+.box-header {
+  margin-top: 20px;
+}
+.box-body {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.table .delete {
+  background: transparent;
+  border: none;
+  color: #337ab7;
+  padding: 0;
+}
+.table .fa:before {
+  font-size: 20px;
+  margin-left: 10px;
+}
+
+/*# sourceMappingURL=table.css.map */

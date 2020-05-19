@@ -1,3 +1,3 @@
-$('select').select2({
-    theme: 'bootstrap4',
-});
+// $('select').select2({
+//     theme: 'bootstrap4',
+// });
