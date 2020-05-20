@@ -10,13 +10,11 @@
             </div>
             <ul class="sidebar-menu">
                 <li class="sidebar-menu__item">
-                    <!--<a href="admin/auto" class="sidebar-menu__item-link"><i class="fa fa-table"></i> <span>Объявления</span></a>-->
                     <router-link to="/auto" class="sidebar-menu__item-link"><i class="fa fa-table"></i> <span>Объявления</span>
                     </router-link>
-                    <!--<router-link to="/category"><i class="fa fa-table"></i> <span>Объявления</span></router-link>-->
-                </li>
+                    </li>
                 <li class="sidebar-menu__item">
-                    <router-link to="/category" class="sidebar-menu__item-link"><i class="fa fa-car"></i> <span>Модели</span></router-link>
+                    <router-link to="/setting" class="sidebar-menu__item-link"><i class="fa fa-car"></i> <span>Справочники</span></router-link>
                 </li>
                 <li class="sidebar-menu__item">
                     <router-link to="/order" class="sidebar-menu__item-link"><i class="fa fa-shopping-cart"></i>
@@ -27,9 +25,9 @@
                 <li class="sidebar-menu__item">
                     <router-link to="/user" class="sidebar-menu__item-link"><i class="fa fa-users"></i> <span>Администраторы</span></router-link>
                 </li>
-                <li class="sidebar-menu__item">
-                    <router-link to="/setting" class="sidebar-menu__item-link"><i class="fa fa-cog"></i> <span>Настройки</span></router-link>
-                </li>
+                <!--<li class="sidebar-menu__item">-->
+                    <!--<router-link to="/setting" class="sidebar-menu__item-link"><i class="fa fa-cog"></i> <span>Настройки</span></router-link>-->
+                <!--</li>-->
             </ul>
         </aside>
         <router-view></router-view>

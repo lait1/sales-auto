@@ -1,32 +1,36 @@
 <template>
     <main class="container box">
+        <button @click="$router.go(-1)" class="btn btn-primary btn-sm"><< Назад</button>
         <div class="box-header">
-            <h2>Объявления</h2>
+            <h2>Категории</h2>
         </div>
         <div class="box-body">
             <div class="form-group">
-
-                <router-link to="/category/create" class="btn btn-success">Добавить</router-link>
-
+                <button v-if="!create" @click="create=true" class="btn btn-success">Добавить</button>
+               <div v-if="create" class="form-group col-sm-6">
+                    <input type="text" class="form-control" v-model="category.name">
+                    <div class="d-flex">
+                        <button @click="addCategory()" type="submit" class="content-form__button-save">Сохранить</button>
+                        <button @click="update()" class="content-form__button-cancel">Отменить</button>
+                    </div>
+                </div>
             </div>
             <div class="table-responsive">
                 <table id="example" class="table table-bordered table-striped table-hover">
-                    <thead>
+                    <thead class="thead-dark">
                     <tr>
-                        <th>ID</th>
                         <th>Название</th>
                         <th>Действия</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="item, index in content">
-                        <td>{{item.id}}</td>
-                        <td>{{item.name}}</td>
+                    <tr v-for="item, index in categories" >
+                        <td @click="testClick(item.id)">{{item.name}}</td>
                         <td>
                             <div class="btn-group" role="group">
                                 <router-link :to="'/category/' +item.id+ '/edit'" class="fa fa-pencil">
                                 </router-link>
-                                <button class="delete fa fa-remove" @click="deleteEntry(item.id, index)"></button>
+                                <button class="delete fa fa-remove" @click="deleteCategory(item.id, index)"></button>
                             </div>
                         </td>
                     </tr>
@@ -45,7 +49,9 @@
         name: "index",
         data: function () {
             return {
-                content: [],
+                categories: [],
+                category:{},
+                create: false
             }
         },
         mounted() {
@@ -55,21 +61,36 @@
         methods: {
             update: function () {
                 axios.get('/api/category').then((response) => {
-                    console.log(response.data);
-                    this.content = response.data;
+                    this.create = false;
+                    this.categories = response.data;
                 })
             },
-            deleteEntry(id, index) {
-                if (confirm("Вы уверены?"+index)) {
+            addCategory() {
+                axios.post('/api/category', this.category)
+                    .then((response) => {
+                        this.create=false;
+                        this.category = {};
+                        this.update();
+                    })
+                    .catch((response) => {
+                        console.log(response);
+                        alert("Не удалось соxранить");
+                    });
+            },
+            deleteCategory(id, index) {
+                if (confirm("Вы уверены?")) {
                     axios.delete('/api/category/'+id)
                         .then((response) =>{
-                            this.content.splice(index, 1);
+                            this.categories.splice(index, 1);
                         })
                         .catch((response) => {
                             alert("Ошибка удаления");
                         });
                 }
             },
+            testClick(id){
+                this.$router.push({path: '/category/'+id+'/edit'});
+            }
         }
     }
 </script>

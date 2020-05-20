@@ -22,4 +22,9 @@ Route::group([
 //    'middleware' => 'auth:api'
 ], function (){
     Route::resource('category', 'CategoryController');
+    Route::resource('type', 'TypeController');
+    Route::resource('model', 'ModelCarController');
+    Route::resource('brand', 'BrandController');
+    Route::resource('status', 'StatusController');
+    Route::resource('city', 'CityController');
 });
