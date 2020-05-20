@@ -2,15 +2,15 @@
     <main class="container content">
         <button @click="$router.go(-1)" class="btn btn-primary btn-sm"><< Назад</button>
         <div class="content-header">
-            <h2>Категория</h2>
+            <h2>Модель</h2>
         </div>
 
-        <form v-on:submit.prevent="updateCategory()" class="content-form">
+        <form v-on:submit.prevent="updateBrand()" class="content-form">
             <div class="form-group row">
                 <label for="inputName" class="col-sm-2 col-form-label content-form__label">Наименование</label>
                 <input type="text" class="form-control col-sm-4" id="inputName" v-bind:disabled="!is_active"
-                       v-model="category.name">
-                <a href="#" @click.prevent="editCategory()" class="content-form__edit"><i class="fa fa-pencil"></i></a>
+                       v-model="brand.name">
+                <a href="#" @click.prevent="editBrand" class="content-form__edit"><i class="fa fa-pencil"></i></a>
             </div>
 
             <div v-if="is_active" class="form-group col-sm-6 content-form__button">
@@ -19,14 +19,14 @@
             </div>
         </form>
         <div class="form-group">
-            <h2>Подкатегории</h2>
+            <h2>Модели</h2>
             <div class="form-group">
                 <button v-if="!create" @click="create=true" class="btn btn-success">Добавить</button>
 
                 <div v-if="create" class="form-group col-sm-6">
-                    <input type="text" class="form-control" v-model="type.name">
+                    <input type="text" class="form-control" v-model="model.name">
                     <div class="d-flex">
-                        <button @click="addType()" type="submit" class="content-form__button-save">Сохранить</button>
+                        <button @click="addModel()" type="submit" class="content-form__button-save">Сохранить</button>
                         <button @click="update()" class="content-form__button-cancel">Отменить</button>
                     </div>
                 </div>
@@ -42,22 +42,22 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="item, index in category.type">
+                <tr v-for="item, index in brand.modelcar">
                     <td>
                         <span v-if="edit !== item.id">
                             {{item.name}}
                         </span>
                         <div v-if="edit === item.id" class="table__row-edit">
                             <input type="text" class="form-control col-sm-4" v-model="item.name">
-                            <a href="#" @click.prevent="saveType(item)">
+                            <a href="#" @click.prevent="saveModel(item)">
                                 <i class="fa fa-floppy-o" aria-hidden="true"></i>
                             </a>
                         </div>
                     </td>
                     <td>
                         <div class="btn-group" role="group">
-                            <a @click.prevent="editType(item.id)" href="#" class="fa fa-pencil"></a>
-                            <button class="delete fa fa-remove" @click="deleteType(item.id, index)"></button>
+                            <a @click.prevent="editModel(item.id)" href="#" class="fa fa-pencil"></a>
+                            <button class="delete fa fa-remove" @click="deleteModel(item.id, index)"></button>
                         </div>
                     </td>
                 </tr>
@@ -71,8 +71,8 @@
     export default {
         data() {
             return {
-                category: {},
-                type: {},
+                brand: {},
+                model: {},
                 is_active: false,
                 edit: '',
                 create: false
@@ -85,19 +85,19 @@
         },
         methods: {
             update() {
-                axios.get(`/api/category/${this.$route.params.id}/edit/`)
+                axios.get(`/api/brand/${this.$route.params.id}/edit/`)
                     .then((response) => {
                         this.is_active = false;
                         this.create = false;
-                        this.type = {};
-                        this.category = response.data;
+                        this.model = {};
+                        this.brand = response.data;
                     })
                     .catch((response) => {
                         alert("Ошибка");
                     });
             },
-            updateCategory() {
-                axios.patch(`/api/category/${this.$route.params.id}`, this.category)
+            updateBrand() {
+                axios.patch(`/api/brand/${this.$route.params.id}`, this.brand)
                     .then((response) => {
                         this.is_active = false;
                     })
@@ -105,12 +105,12 @@
                         alert("Ошибка Изменения");
                     });
             },
-            editCategory() {
+            editBrand() {
                 this.is_active = true;
             },
-            addType() {
-                this.type.category_id = this.category.id;
-                axios.post('/api/type', this.type)
+            addModel() {
+                this.model.brand_id = this.brand.id;
+                axios.post('/api/model', this.model)
                     .then((response) => {
                         this.create = false;
                         this.update();
@@ -120,11 +120,11 @@
                         alert("Не удалось соxранить");
                     });
             },
-            editType(id) {
+            editModel(id) {
                 this.edit = id;
             },
-            saveType(item) {
-                axios.patch(`/api/type/${item.id}`, item)
+            saveModel(item) {
+                axios.patch(`/api/model/${item.id}`, item)
                     .then((response) => {
                         this.edit = false;
                     })
@@ -132,11 +132,11 @@
                         alert("Ошибка Изменения");
                     });
             },
-            deleteType(id, index) {
+            deleteModel(id, index) {
                 if (confirm("Вы уверены?")) {
-                    axios.delete('/api/type/' + id)
+                    axios.delete('/api/model/' + id)
                         .then((response) => {
-                            this.category.type.splice(index, 1);
+                            this.brand.modelcar.splice(index, 1);
                         })
                         .catch((response) => {
                             alert("Ошибка удаления");

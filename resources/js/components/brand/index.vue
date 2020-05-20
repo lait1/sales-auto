@@ -2,15 +2,15 @@
     <main class="container box">
         <button @click="$router.go(-1)" class="btn btn-primary btn-sm"><< Назад</button>
         <div class="box-header">
-            <h2>Категории</h2>
+            <h2>Бренды</h2>
         </div>
         <div class="box-body">
             <div class="form-group">
                 <button v-if="!create" @click="create=true" class="btn btn-success">Добавить</button>
-               <div v-if="create" class="form-group col-sm-6">
-                    <input type="text" class="form-control" v-model="category.name">
+                <div v-if="create" class="form-group col-sm-6">
+                    <input type="text" class="form-control" v-model="brand.name">
                     <div class="d-flex">
-                        <button @click="addCategory()" type="submit" class="content-form__button-save">Сохранить</button>
+                        <button @click="addBrand()" type="submit" class="content-form__button-save">Сохранить</button>
                         <button @click="update()" class="content-form__button-cancel">Отменить</button>
                     </div>
                 </div>
@@ -24,13 +24,13 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="item, index in categories" >
+                    <tr v-for="item, index in brands" >
                         <td @click="testClick(item.id)">{{item.name}}</td>
                         <td>
                             <div class="btn-group" role="group">
-                                <router-link :to="'/category/' +item.id+ '/edit'" class="fa fa-pencil">
+                                <router-link :to="'/brand/' +item.id+ '/edit'" class="fa fa-pencil">
                                 </router-link>
-                                <button class="delete fa fa-remove" @click="deleteCategory(item.id, index)"></button>
+                                <button class="delete fa fa-remove" @click="deleteBrand(item.id, index)"></button>
                             </div>
                         </td>
                     </tr>
@@ -49,8 +49,8 @@
         name: "index",
         data: function () {
             return {
-                categories: [],
-                category:{},
+                brands: [],
+                brand:{},
                 create: false
             }
         },
@@ -60,14 +60,14 @@
         },
         methods: {
             update: function () {
-                axios.get('/api/category').then((response) => {
+                axios.get('/api/brand').then((response) => {
                     this.create = false;
-                    this.category = {};
-                    this.categories = response.data;
+                    this.brand = {};
+                    this.brands = response.data;
                 })
             },
-            addCategory() {
-                axios.post('/api/category', this.category)
+            addBrand() {
+                axios.post('/api/brand', this.brand)
                     .then((response) => {
                         this.create=false;
                         this.update();
@@ -77,11 +77,11 @@
                         alert("Не удалось соxранить");
                     });
             },
-            deleteCategory(id, index) {
+            deleteBrand(id, index) {
                 if (confirm("Вы уверены?")) {
-                    axios.delete('/api/category/'+id)
+                    axios.delete('/api/brand/'+id)
                         .then((response) =>{
-                            this.categories.splice(index, 1);
+                            this.brands.splice(index, 1);
                         })
                         .catch((response) => {
                             alert("Ошибка удаления");
@@ -89,7 +89,7 @@
                 }
             },
             testClick(id){
-                this.$router.push({path: '/category/'+id+'/edit'});
+                this.$router.push({path: '/brand/'+id+'/edit'});
             }
         }
     }
