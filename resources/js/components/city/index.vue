@@ -110,9 +110,6 @@
                         });
                 }
             },
-            testClick(id) {
-                this.$router.push({path: '/city/' + id + '/edit'});
-            }
         }
     }
 </script>

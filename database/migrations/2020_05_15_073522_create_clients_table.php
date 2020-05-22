@@ -17,10 +17,10 @@ class CreateClientsTable extends Migration
             $table->bigIncrements('id');
             $table->string('fio');
             $table->bigInteger('city_id')->unsigned()->nullable();
-            $table->string('phone', 20)->unique();
-            $table->string('email', 50)->unique();
-            $table->string('password', 150);
-            $table->integer('blocked');
+            $table->string('phone', 20)->unique()->nullable();
+            $table->string('email', 50)->unique()->nullable();
+            $table->string('password', 150)->nullable();
+            $table->integer('blocked')->nullable()->default(0);
             $table->timestamps();
         });
     }

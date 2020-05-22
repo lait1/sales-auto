@@ -22,8 +22,8 @@ Route::get('/home/json', 'HomeController@getJson');
 
 Route::group(['prefix'=>'admin' , 'namespace'=>'API'], function (){
     Route::get('/', 'DashboardController@index');
-    Route::resource('/auto', 'AutoController');
-    Route::resource('/client', 'ClientController');
-    Route::resource('/users', 'UserController');
+//    Route::resource('/auto', 'AutoController');
+//    Route::resource('/client', 'ClientController');
+//    Route::resource('/users', 'UserController');
 
 });

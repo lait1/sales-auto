@@ -17,8 +17,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
-        'password',
+        'login',
     ];
 
     /**
@@ -27,7 +26,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
         'remember_token',
     ];
 
@@ -58,5 +56,34 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+    public function toggleStatus()
+    {
+        if ($this->blocked) {
+            return $this->unlocked();
+        } else {
+            return $this->blocked();
+        }
+    }
+    public function setBlock($value)
+    {
+        $this->blocked = $value;
+        $this->save();
+    }
+    public function blocked()
+    {
+        $this->blocked = 1;
+        $this->save();
+    }
+
+    public function unlocked()
+    {
+        $this->blocked = 0;
+        $this->save();
+    }
+    public function setRole($role)
+    {
+        $this->role_id = $role;
+        $this->save();
     }
 }

@@ -3,20 +3,19 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Type;
+use App\Role;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
-class TypeController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Type[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return Type::all();
+        return Role::all();
     }
 
     /**
@@ -37,59 +36,51 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
-        $type = Type::create($request->all());
-        $type->setCategory($request->get('category_id'));
-        return $type;
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Type  $type
+     * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Role $role)
     {
-        return Type::findOrFail($id);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Type  $type
-     * @return Type|\Illuminate\Http\Response
+     * @param  \App\Role  $role
+     * @return \Illuminate\Http\Response
      */
-    public function edit(Type $type)
+    public function edit(Role $role)
     {
-        return $type;
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Role $role)
     {
-        $type = Type::findOrFail($id);
-        $type->update($request->all());
-        $type->setCategory($request->get('category_id'));
-        return $type;
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Type  $type
+     * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Role $role)
     {
-        $type = Type::findOrFail($id);
-        $type->delete();
-        return response()->json('The type successfully deleted');
-
+        //
     }
 }

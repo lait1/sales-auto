@@ -17,9 +17,9 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('name', 100);
             $table->string('login', 100)->unique();
-            $table->string('password', 150);
+//            $table->string('password', 150);
             $table->bigInteger('role_id')->unsigned()->nullable();
-            $table->integer('blocked');
+            $table->integer('blocked')->nullable()->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

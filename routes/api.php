@@ -27,4 +27,9 @@ Route::group([
     Route::resource('brand', 'BrandController');
     Route::resource('status', 'StatusController');
     Route::resource('city', 'CityController');
+    Route::resource('client', 'ClientController');
+    Route::get('client/blocked/{id}', 'ClientController@blocked');
+    Route::resource('user', 'UserController');
+    Route::get('user/blocked/{id}', 'UserController@blocked');
+    Route::get('role', 'RoleController@index');
 });
