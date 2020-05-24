@@ -32,4 +32,6 @@ Route::group([
     Route::resource('user', 'UserController');
     Route::get('user/blocked/{id}', 'UserController@blocked');
     Route::get('role', 'RoleController@index');
+    Route::resource('auto', 'AutoController');
+    Route::resource('order', 'OrderController');
 });

@@ -17,5 +17,7 @@ export const routes = [
     {path: '/user/create',component: require('./components/user/create.vue').default},
     {path: '/user/:id/edit', component: require('./components/user/edit.vue').default},
 
+    {path: '/order',component: require('./components/order/index.vue').default},
+    {path: '/order/:id/edit', component: require('./components/order/edit.vue').default},
 
 ];

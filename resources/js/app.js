@@ -20,7 +20,7 @@ const router = new VueRouter({routes});
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
+Vue.component('pagination', require('laravel-vue-pagination'));
 // $(document).ready(function () {
 //     $('select').select2({
 //         theme: 'bootstrap4',

@@ -20,4 +20,16 @@ class Order extends Model
     {
         return $this->belongsTo(Client::class);
     }
+    public function getUser()
+    {
+        if($this->user == null)
+            return 'Без менеджера';
+        return $this->user;
+    }
+
+    public function setComment($value)
+    {
+        $this->comment = $value;
+        $this->save();
+    }
 }
