@@ -42,7 +42,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(History::class);
     }
-
+    public function auto()
+    {
+        return $this->hasMany(Auto::class);
+    }
     public function post()
     {
         return $this->hasMany(Post::class);
@@ -70,13 +73,13 @@ class User extends Authenticatable
         $this->blocked = $value;
         $this->save();
     }
-    public function blocked()
+    private function blocked()
     {
         $this->blocked = 1;
         $this->save();
     }
 
-    public function unlocked()
+    private function unlocked()
     {
         $this->blocked = 0;
         $this->save();

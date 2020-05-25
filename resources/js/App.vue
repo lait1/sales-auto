@@ -14,6 +14,9 @@
                     </router-link>
                     </li>
                 <li class="sidebar-menu__item">
+                    <router-link to="/post" class="sidebar-menu__item-link"><i class="fa fa-file-text-o"></i> <span>Статьи</span></router-link>
+                </li>
+                <li class="sidebar-menu__item">
                     <router-link to="/setting" class="sidebar-menu__item-link"><i class="fa fa-car"></i> <span>Справочники</span></router-link>
                 </li>
                 <li class="sidebar-menu__item">
@@ -25,9 +28,7 @@
                 <li class="sidebar-menu__item">
                     <router-link to="/user" class="sidebar-menu__item-link"><i class="fa fa-users"></i> <span>Администраторы</span></router-link>
                 </li>
-                <!--<li class="sidebar-menu__item">-->
-                    <!--<router-link to="/setting" class="sidebar-menu__item-link"><i class="fa fa-cog"></i> <span>Настройки</span></router-link>-->
-                <!--</li>-->
+
             </ul>
         </aside>
         <router-view></router-view>

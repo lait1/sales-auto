@@ -90,6 +90,10 @@ class AddForeignKey extends Migration
                 ->on('cities')
                 ->onUpdate('cascade')
                 ->onDelete('set null');
+            $table->foreign('user_id')->references('id')
+                ->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
         });
         Schema::table('posts', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')
@@ -138,6 +142,7 @@ class AddForeignKey extends Migration
             $table->dropForeign(['modelcar_id']);
             $table->dropForeign(['status_id']);
             $table->dropForeign(['city_id']);
+            $table->dropForeign(['user_id']);
         });
         Schema::table('posts', function (Blueprint $table) {
             $table->dropForeign(['user_id']);

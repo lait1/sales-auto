@@ -44,11 +44,12 @@ class CategoryController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
+     * @return \App\Type[]|\Illuminate\Database\Eloquent\Collection
      */
-    public function show($id)
+    public function show(Category $category)
     {
-        return Category::findOrFail($id);
+
+        return $category->type;
     }
 
     /**

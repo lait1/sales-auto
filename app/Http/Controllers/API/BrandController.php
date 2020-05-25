@@ -44,11 +44,12 @@ class BrandController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Brand  $brand
-     * @return \Illuminate\Http\Response
+     * @return \App\ModelCar[]|\Illuminate\Database\Eloquent\Collection
      */
     public function show(Brand $brand)
     {
-        //
+
+         return $brand->modelcar;
     }
 
     /**

@@ -20,4 +20,8 @@ export const routes = [
     {path: '/order',component: require('./components/order/index.vue').default},
     {path: '/order/:id/edit', component: require('./components/order/edit.vue').default},
 
+    {path: '/auto',component: require('./components/auto/index.vue').default},
+    {path: '/auto/create',component: require('./components/auto/create.vue').default},
+    {path: '/auto/:id/edit', component: require('./components/auto/edit.vue').default},
+
 ];

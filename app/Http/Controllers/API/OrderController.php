@@ -28,7 +28,7 @@ class OrderController extends Controller
         $result = Order::select('orders.*', 'autos.name as auto', 'clients.fio as client', 'users.name as username')
             ->leftJoin('users', 'users.id', '=', 'orders.user_id')
             ->leftJoin('clients', 'clients.id', '=', 'orders.client_id')
-            ->leftJoin('autos', 'autos.id', '=', 'orders.auto_id')->orderBy('created_at', 'desc')
+            ->leftJoin('autos', 'autos.id', '=', 'orders.auto_id')->orderBy('orders.created_at', 'desc')
             ->paginate(10);
         return $result;
     }

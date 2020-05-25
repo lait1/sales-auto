@@ -20,17 +20,18 @@ class CreateAutosTable extends Migration
             $table->bigInteger('modelcar_id')->unsigned()->nullable();
             $table->bigInteger('status_id')->unsigned()->nullable();
             $table->bigInteger('city_id')->unsigned()->nullable();
+            $table->bigInteger('user_id')->unsigned()->nullable();
             $table->string('year', 5)->nullable();
-            $table->string('drive')->nullable();
+            $table->string('mileage')->nullable();
             $table->string('transmission')->nullable();
+            $table->string('fuel')->nullable();
+            $table->string('drive')->nullable();
             $table->string('price')->nullable();
+            $table->integer('draft')->default(1);
             $table->text('description')->nullable();
-            $table->integer('draft');
-
             $table->string('keywords')->nullable();
             $table->string('title')->nullable();
             $table->string('seo_desc')->nullable();
-
             $table->timestamps();
         });
     }

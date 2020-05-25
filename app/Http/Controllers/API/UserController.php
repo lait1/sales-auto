@@ -41,12 +41,10 @@ class UserController extends Controller
             $user->setRole($request->get('role_id'));
             $user->setBlock($request->get('blocked'));
             return $user;
-//
         } catch (\Throwable $e) {
             Log::error('Ошибка сохранения пользователя', (array)$e->getMessage());
             return response()->json('Ошибка сохранения', 404);
         }
-
     }
 
     public function edit(User $user)

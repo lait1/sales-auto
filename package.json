@@ -24,7 +24,9 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@ttskch/select2-bootstrap4-theme": "^1.4.0",
         "laravel-vue-pagination": "^2.3.1",
+        "select2": "^4.0.13",
         "vue-router": "^3.1.6"
     }
 }
