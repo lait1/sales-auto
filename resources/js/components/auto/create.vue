@@ -141,12 +141,13 @@
                         <label for="inputImage" class="col-sm-2 col-form-label content-form__label">Фото</label>
                         <input type="file" id="inputImage">
                     </div>
+
                     <div class="form-group row align-items-center">
                         <label for="inputPrice" class="col-sm-2 col-form-label content-form__label">Черновик</label>
                         <input type="checkbox" class="content-form__checkbox" v-model="auto.draft">
                     </div>
                     <div class="form-group row align-items-center">
-                        <label for="inputSEO" class="col-sm-2 col-form-label content-form__label">SEO</label>
+                        <label class="col-sm-2 col-form-label content-form__label">SEO</label>
                         <input type="checkbox" class="content-form__checkbox" v-model="is_Seo">
                     </div>
                     <!--SEO BLOCK-->
@@ -183,7 +184,7 @@
         </form>
     </main>
 </template>
-`
+
 <script>
     export default {
         name: "create",

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Auto;
 use App\Http\Controllers\Controller;
+use App\Image;
+use Auth;
 use Illuminate\Http\Request;
 use Log;
 
@@ -39,6 +41,7 @@ class AutoController extends Controller
             'type_id' => 'required',
         ]);
         $auto = Auto::create($request->all());
+        $auto->setUser(Auth::guard('admin')->id);
         return $auto->id;
 
     }
@@ -53,14 +56,13 @@ class AutoController extends Controller
     {
         $result = Auto::select('autos.*',
             'types.category_id as category_id',
-//            'cities.name as city',
             'model_cars.brand_id as brand_id'
         )
             ->leftJoin('types', 'types.id', '=', 'autos.type_id')
             ->leftJoin('model_cars', 'model_cars.id', '=', 'autos.modelcar_id')
-            ->leftJoin('cities', 'cities.id', '=', 'autos.city_id')
             ->where('autos.id', $auto->id)
             ->first();
+        $result->image;
         return $result;
     }
 
@@ -99,10 +101,39 @@ class AutoController extends Controller
         }
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function draft($id)
     {
         $auto = Auto::findOrFail($id);
         $auto->toggleDraft();
         return response()->json($auto->draft);
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return array|\Illuminate\Http\UploadedFile|\Illuminate\Http\UploadedFile[]|null
+     */
+    public function createPhoto(Request $request, $id)
+    {
+
+        $photos = Image::addPhoto($request->file(), $id);
+        return $photos;
+    }
+
+    public function removePhoto($id)
+    {
+        $image = Image::find($id);
+        $filename = $image->name;
+
+        $path = public_path() . '/upload/';
+        unlink($path. $filename);
+        unlink($path. '/thumbnail/' . $filename);
+
+        $image->delete();
+
     }
 }

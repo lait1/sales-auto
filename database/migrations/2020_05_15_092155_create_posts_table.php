@@ -19,7 +19,7 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->string('image');
             $table->text('content');
-            $table->integer('draft');
+            $table->integer('draft')->default(1);
             $table->timestamps();
         });
     }

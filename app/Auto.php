@@ -126,4 +126,9 @@ class Auto extends Model
         $this->draft = 0;
         $this->save();
     }
+    public function setUser($user)
+    {
+        $this->user_id = $user;
+        $this->save();
+    }
 }

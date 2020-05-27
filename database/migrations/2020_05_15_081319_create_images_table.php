@@ -17,7 +17,7 @@ class CreateImagesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->bigInteger('auto_id')->unsigned();
-            $table->integer('priority');
+            $table->integer('priority')->nullable();
             $table->timestamps();
         });
     }

@@ -24,4 +24,9 @@ export const routes = [
     {path: '/auto/create',component: require('./components/auto/create.vue').default},
     {path: '/auto/:id/edit', component: require('./components/auto/edit.vue').default},
 
+    {path: '/post',component: require('./components/post/index.vue').default},
+    {path: '/post/create',component: require('./components/post/create.vue').default},
+    // {path: '/post/:id/edit', component: require('./components/post/edit.vue').default},
+
+
 ];
