@@ -26,7 +26,7 @@ export const routes = [
 
     {path: '/post',component: require('./components/post/index.vue').default},
     {path: '/post/create',component: require('./components/post/create.vue').default},
-    // {path: '/post/:id/edit', component: require('./components/post/edit.vue').default},
+    {path: '/post/:id/edit', component: require('./components/post/edit.vue').default},
 
 
 ];

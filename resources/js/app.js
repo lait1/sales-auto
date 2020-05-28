@@ -10,18 +10,14 @@ window.Vue = require('vue');
 import VueRouter from 'vue-router';
 import App from './App.vue';
 import {routes} from './routes';
-
 window.Vue.use(VueRouter);
+
 import Select2 from 'v-select2-component';
-
-Vue.component('Select2', Select2);
-// var VuePluload = require("vue-plupload");
-// import VuePluload from 'vue-plupload';
-// vue.use(VuePluload);
-// import 'select2';
-// import 'select2/dist/css/select2.css';
 import '@ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4.min.css';
+Vue.component('Select2', Select2);
 
+import CKEditor from '@ckeditor/ckeditor5-vue';
+window.Vue.use( CKEditor );
 
 const router = new VueRouter({routes});
 /**
@@ -29,6 +25,7 @@ const router = new VueRouter({routes});
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+
 Vue.component('pagination', require('laravel-vue-pagination'));
 // Vue.component('image-input', require('./components/image-input.vue').default);
 // $(document).ready(function () {

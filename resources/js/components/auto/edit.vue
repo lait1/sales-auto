@@ -199,12 +199,12 @@
 
 
                     <div class="form-group row align-items-center">
-                        <label for="inputPrice" class="col-sm-2 col-form-label content-form__label">Черновик</label>
-                        <input type="checkbox" class="content-form__checkbox" v-model="auto.draft">
+                        <label for="inputDraft" class="col-sm-2 col-form-label content-form__label">Черновик</label>
+                        <input id="inputDraft" type="checkbox" class="content-form__checkbox" v-model="auto.draft">
                     </div>
                     <div class="form-group row align-items-center">
                         <label for="inputSEO" class="col-sm-2 col-form-label content-form__label">SEO</label>
-                        <input type="checkbox" class="content-form__checkbox" v-model="is_Seo">
+                        <input id="inputSEO" type="checkbox" class="content-form__checkbox" v-model="is_Seo">
                     </div>
                     <!--SEO BLOCK-->
                     <template v-if="is_Seo">
