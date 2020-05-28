@@ -16,8 +16,9 @@ class CreateAutosTable extends Migration
         Schema::create('autos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->nullable();
+            $table->string('slug')->nullable();
             $table->bigInteger('type_id')->unsigned()->nullable();
-            $table->bigInteger('modelcar_id')->unsigned()->nullable();
+            $table->bigInteger('model_car_id')->unsigned()->nullable();
             $table->bigInteger('status_id')->unsigned()->nullable();
             $table->bigInteger('city_id')->unsigned()->nullable();
             $table->bigInteger('user_id')->unsigned()->nullable();

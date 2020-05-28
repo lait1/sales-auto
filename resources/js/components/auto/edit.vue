@@ -46,7 +46,7 @@
                         <!--</select>-->
                         <Select2 id="inputModel"
                                  class="col-sm-4 p-0"
-                                 v-model="auto.modelcar_id"
+                                 v-model="auto.model_car_id"
                                  :options="model"
                                  :settings="{theme: 'bootstrap4'}"/>
                     </div>

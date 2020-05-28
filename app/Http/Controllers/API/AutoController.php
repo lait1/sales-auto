@@ -41,7 +41,7 @@ class AutoController extends Controller
             'type_id' => 'required',
         ]);
         $auto = Auto::create($request->all());
-        $auto->setUser(Auth::guard('admin')->id);
+        $auto->setUser(Auth::guard('admin')->user()->id);
         return $auto->id;
 
     }
@@ -59,7 +59,7 @@ class AutoController extends Controller
             'model_cars.brand_id as brand_id'
         )
             ->leftJoin('types', 'types.id', '=', 'autos.type_id')
-            ->leftJoin('model_cars', 'model_cars.id', '=', 'autos.modelcar_id')
+            ->leftJoin('model_cars', 'model_cars.id', '=', 'autos.model_car_id')
             ->where('autos.id', $auto->id)
             ->first();
         $result->image;

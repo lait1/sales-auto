@@ -78,7 +78,7 @@ class AddForeignKey extends Migration
                 ->on('types')
                 ->onUpdate('cascade')
                 ->onDelete('set null');
-            $table->foreign('modelcar_id')->references('id')
+            $table->foreign('model_car_id')->references('id')
                 ->on('model_cars')
                 ->onUpdate('cascade')
                 ->onDelete('set null');
@@ -139,7 +139,7 @@ class AddForeignKey extends Migration
         });
         Schema::table('autos', function (Blueprint $table) {
             $table->dropForeign(['type_id']);
-            $table->dropForeign(['modelcar_id']);
+            $table->dropForeign(['model_car_id']);
             $table->dropForeign(['status_id']);
             $table->dropForeign(['city_id']);
             $table->dropForeign(['user_id']);

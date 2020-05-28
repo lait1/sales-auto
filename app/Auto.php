@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string|null $name
  * @property int|null $type_id
- * @property int|null $modelcar_id
+ * @property int|null $model_car_id
  * @property int|null $status_id
  * @property int|null $city_id
  * @property string|null $year
@@ -51,16 +52,37 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Auto whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Auto whereYear($value)
  * @mixin \Eloquent
+ * @property int|null $user_id
+ * @property string|null $mileage
+ * @property string|null $fuel
+ * @property string|null $keywords
+ * @property string|null $title
+ * @property string|null $seo_desc
+ * @property-read \App\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Auto whereFuel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Auto whereKeywords($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Auto whereMileage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Auto whereSeoDesc($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Auto whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Auto whereUserId($value)
  */
 class Auto extends Model
 {
+    use Sluggable;
     protected $fillable = [
-        'type_id', 'modelcar_id', 'status_id', 'city_id', 'user_id',
+        'type_id', 'model_car_id', 'status_id', 'city_id', 'user_id',
        'name', 'draft', 'year', 'mileage', 'transmission',
         'fuel', 'drive', 'price', 'description',
         'keywords', 'title', 'seo_desc'
         ];
-
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'name'
+            ]
+        ];
+    }
     public function history()
     {
         return $this->hasMany(History::class);

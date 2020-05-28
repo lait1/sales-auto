@@ -19,21 +19,19 @@
                 <template v-if="category === 1">
                     <div class="form-group row">
                         <label for="inputMarka" class="col-sm-2 col-form-label content-form__label">Марка</label>
-                        <select id="inputMarka" class="form-control col-sm-4" v-model="brand">
-                            <option disabled value="">Выберите марку</option>
-                            <template v-for="item in brands">
-                                <option v-bind:value="item.id">{{item.name}}</option>
-                            </template>
-                        </select>
+                        <Select2 id="inputMarka"
+                                 class="col-sm-4 p-0"
+                                 v-model="brand"
+                                 :options="brands"
+                                 :settings="{theme: 'bootstrap4'}"/>
                     </div>
                     <div class="form-group row">
                         <label for="inputModel" class="col-sm-2 col-form-label content-form__label">Модель</label>
-                        <select id="inputModel" class="form-control col-sm-4" v-model="auto.modelcar_id">
-                            <option disabled value="">Выберите модель</option>
-                            <template v-for="item in model">
-                                <option v-bind:value="item.id">{{item.name}}</option>
-                            </template>
-                        </select>
+                        <Select2 id="inputModel"
+                                 class="col-sm-4 p-0"
+                                 v-model="auto.model_car_id"
+                                 :options="model"
+                                 :settings="{theme: 'bootstrap4'}"/>
                     </div>
                     <div class="form-group row">
                         <label for="inputYear" class="col-sm-2 col-form-label content-form__label">Год</label>
@@ -103,7 +101,7 @@
                         </select>
                     </div>
                 </template>
-                <template v-show="auto.type_id > 0">
+                <template v-if="auto.type_id > 0">
                     <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label content-form__label">Наименование</label>
                         <input type="text" class="form-control col-sm-4" id="inputName" placeholder="Введите название"
@@ -111,21 +109,19 @@
                     </div>
                     <div class="form-group row">
                         <label for="inputStatus" class="col-sm-2 col-form-label content-form__label">Статус</label>
-                        <select id="inputStatus" class="form-control col-sm-4" v-model="auto.status_id">
-                            <option disabled value="">Выберите статус</option>
-                            <template v-for="item in status">
-                                <option v-bind:value="item.id">{{item.name}}</option>
-                            </template>
-                        </select>
+                        <Select2 id="inputStatus"
+                                 class="col-sm-4 p-0"
+                                 v-model="auto.status_id"
+                                 :options="status"
+                                 :settings="{theme: 'bootstrap4'}"/>
                     </div>
                     <div class="form-group row">
                         <label for="inputCity" class="col-sm-2 col-form-label content-form__label">Город</label>
-                        <select id="inputCity" class="form-control col-sm-4" v-model="auto.city_id">
-                            <option disabled value="">Выберите Город</option>
-                            <template v-for="item in cities">
-                                <option v-bind:value="item.id">{{item.name}}</option>
-                            </template>
-                        </select>
+                        <Select2 id="inputCity"
+                                 class="col-sm-4 p-0"
+                                 v-model="auto.city_id"
+                                 :options="cities"
+                                 :settings="{theme: 'bootstrap4'}"/>
                     </div>
                     <div class="form-group row">
                         <label for="inputPrice" class="col-sm-2 col-form-label content-form__label">Цена</label>
@@ -137,9 +133,19 @@
                         <textarea rows="6" class="form-control col-sm-5" id="inputDesc"
                                   v-model="auto.description"> lorem100</textarea>
                     </div>
-                    <div class="form-group row">
+                    <div class="form-group">
                         <label for="inputImage" class="col-sm-2 col-form-label content-form__label">Фото</label>
-                        <input type="file" id="inputImage">
+                        <input type="file" id="inputImage" multiple @change="previewImages" name="newfiles[]"
+                               accept="image/*">
+
+                        <div class="form__photo add-photo">
+                            <div class="form__photo-thumbnail" v-for="(image, index) in imagesData">
+                                <img :src="/upload/ + image.name">
+                                <button @click.prevent="removePhoto(image.id, index)" type="button"
+                                        v-bind:data-id="image.id"
+                                        class="delete fa fa-remove"></button>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group row align-items-center">
@@ -198,7 +204,7 @@
                 category: '',
                 type: {},
 
-                model: {},
+                model: [],
                 brands: {},
                 brand: '',
 
@@ -206,6 +212,7 @@
                 status: {},
                 is_Seo: false,
                 is_created: false,
+                imagesData: []
             }
         },
         mounted() {
@@ -226,6 +233,14 @@
             },
         },
         methods: {
+            previewImages(event) {
+                let data = new FormData();
+                let pictures = event.target.files;
+                $.each(pictures, function (key, value) {
+                    data.append(key, value);
+                });
+                this.createPhoto(data);
+            },
             addAuto() {
                 //Если категория легковые автомобили(1), то и тип тоже легковые автомобили (1)
                 if (this.is_created !== 1) {
@@ -239,6 +254,27 @@
                             alert("Ошибка");
                         });
                 }
+            },
+            createPhoto(file) {
+                axios.post(`/api/auto/photo/${this.auto.id}/create`, file)
+                    .then((response) => {
+                        response.data.forEach(item => {
+                            this.imagesData.push(item);
+                        });
+                    })
+                    .catch((response) => {
+                        alert("Ошибка");
+                    });
+            },
+            removePhoto(id, index) {
+                axios.delete(`/api/auto/photo/${id}`)
+                    .then((response) => {
+                        console.log('delete photo');
+                        this.imagesData.splice(index, 1);
+                    })
+                    .catch((response) => {
+                        alert("Ошибка");
+                    });
             },
             updateAuto() {
                 if (this.is_created === 1) {
@@ -260,36 +296,54 @@
             getCity() {
                 axios.get(`/api/city/`)
                     .then((response) => {
+                        response.data.map(function (obj) {
+                            obj.text = obj.text || obj.name;
+                        });
                         this.cities = response.data;
                     })
             },
             getStatus() {
                 axios.get(`/api/status/`)
                     .then((response) => {
+                        response.data.map(function (obj) {
+                            obj.text = obj.text || obj.name;
+                        });
                         this.status = response.data;
                     })
             },
             getCategory() {
                 axios.get(`/api/category/`)
                     .then((response) => {
+                        response.data.map(function (obj) {
+                            obj.text = obj.text || obj.name;
+                        });
                         this.categories = response.data;
                     })
             },
             getType(category) {
                 axios.get(`/api/category/${category}`)
                     .then((response) => {
+                        response.data.map(function (obj) {
+                            obj.text = obj.text || obj.name;
+                        });
                         this.type = response.data;
                     });
             },
             getBrand() {
                 axios.get(`/api/brand`)
                     .then((response) => {
+                        response.data.map(function (obj) {
+                            obj.text = obj.text || obj.name;
+                        });
                         this.brands = response.data;
                     });
             },
             getModel(brand) {
                 axios.get(`/api/brand/${brand}`)
                     .then((response) => {
+                        response.data.map(function (obj) {
+                            obj.text = obj.text || obj.name;
+                        });
                         this.model = response.data;
                     });
             }
@@ -297,6 +351,35 @@
     }
 </script>
 
-<style scoped>
+<style lang="sass" scoped>
+    .form__photo
+        display: flex
+        flex-direction: row
+        flex-wrap: wrap
+        &-thumbnail
+            margin: 5px
+            position: relative
+            &:hover img
+                filter: brightness(40%)
+            &:hover button
+                display: block
+            img
+                max-height: 130px
+                max-width: 170px
+                width: 100%
+                height: 100%
+                transition: .3s ease-in-out
+            button
+                position: absolute
+                right: 5px
+                top: 5px
+                color: #fff
+                background: transparent
+                border: none
+                font-size: 20px
+                display: none
+
+    .select2
+        width: 100%
 
 </style>
