@@ -30,4 +30,14 @@ class Brand extends Model
     {
         return $this->hasMany(ModelCar::class);
     }
+
+    public function countAuto()
+    {
+        $summ = 0;
+        $modelcars = $this->modelcar;
+        foreach ($modelcars as $model) {
+            $summ += $model->auto()->count();
+        }
+        return $summ;
+    }
 }

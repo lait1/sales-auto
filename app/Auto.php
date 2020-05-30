@@ -2,8 +2,10 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
+use NumberFormatter;
 
 /**
  * App\Auto
@@ -65,6 +67,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Auto whereSeoDesc($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Auto whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Auto whereUserId($value)
+ * @property string|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Auto draft($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Auto findSimilarSlugs($attribute, $config, $slug)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Auto whereSlug($value)
  */
 class Auto extends Model
 {
@@ -153,4 +159,64 @@ class Auto extends Model
         $this->user_id = $user;
         $this->save();
     }
+
+    public function getType()
+    {
+        if ($this->type != null)
+            return $this->type->name;
+        return 'Нет данных';
+    }
+    public function getStatus()
+    {
+        if ($this->status != null)
+            return $this->status->name;
+        return 'Нет данных';
+    }
+
+    public function getMileage()
+    {
+        if ($this->mileage != null)
+            return $this->mileage;
+        return 'Нет данных';
+    }
+    public function getTransmission()
+    {
+        if ($this->transmission != null)
+            return $this->transmission;
+        return 'Нет данных';
+    }
+    public function getDrive()
+    {
+        if ($this->drive != null)
+            return $this->drive;
+        return 'Нет данных';
+    }
+    public function getFuel()
+    {
+        if ($this->fuel != null)
+            return $this->fuel;
+        return 'Нет данных';
+    }
+    public function getYear()
+    {
+        if ($this->year != null)
+            return $this->year;
+        return 'Нет данных';
+    }
+    public function getPrice()
+    {
+        if ($this->price != null) {
+            return number_format($this->price, 0, ',' ,' ');
+        }
+        return 'Нет данных';
+    }
+    public function getDate()
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at)->format('d.m.Y H:i:s');
+    }
+    public function scopeDraft($query, $value)
+    {
+        return $query->where('draft', $value);
+    }
 }
+

@@ -345,7 +345,7 @@ footer {
 }
 .car-tabs__specification {
   height: 100%;
-  padding: 20px;
+  padding: 10px 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -580,6 +580,24 @@ footer {
   background: #004584;
   color: #fff;
   transition: all 0.3s ease;
+}
+
+.post {
+  background: #fff;
+}
+.post-header {
+  height: 300px;
+  display: flex;
+  background: #225d94;
+}
+.post-header h1 {
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 30px;
+  margin: auto;
+}
+.post-content {
+  padding: 50px;
 }
 
 /*# sourceMappingURL=style.css.map */

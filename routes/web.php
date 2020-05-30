@@ -15,6 +15,8 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/auto/{slug}', 'HomeController@auto');
+Route::get('/post/{slug}', 'HomeController@post');
 
 
 Route::group(['prefix' => 'admin'], function () {
@@ -28,7 +30,7 @@ Route::group(['prefix' => 'admin'], function () {
 Route::group([
     'prefix' => 'api',
     'namespace' => 'api',
-//    'middleware' => 'auth:admin',
+    'middleware' => 'auth:admin',
 ], function (){
     Route::resource('category', 'CategoryController');
     Route::resource('type', 'TypeController');
