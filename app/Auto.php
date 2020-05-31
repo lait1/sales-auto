@@ -76,11 +76,25 @@ class Auto extends Model
 {
     use Sluggable;
     protected $fillable = [
-        'type_id', 'model_car_id', 'status_id', 'city_id', 'user_id',
-       'name', 'draft', 'year', 'mileage', 'transmission',
-        'fuel', 'drive', 'price', 'description',
-        'keywords', 'title', 'seo_desc'
-        ];
+        'type_id',
+        'model_car_id',
+        'status_id',
+        'city_id',
+        'user_id',
+        'name',
+        'draft',
+        'year',
+        'mileage',
+        'transmission',
+        'fuel',
+        'drive',
+        'price',
+        'description',
+        'keywords',
+        'title',
+        'seo_desc'
+    ];
+
     public function sluggable()
     {
         return [
@@ -89,6 +103,7 @@ class Auto extends Model
             ]
         ];
     }
+
     public function history()
     {
         return $this->hasMany(History::class);
@@ -154,6 +169,7 @@ class Auto extends Model
         $this->draft = 0;
         $this->save();
     }
+
     public function setUser($user)
     {
         $this->user_id = $user;
@@ -162,61 +178,119 @@ class Auto extends Model
 
     public function getType()
     {
-        if ($this->type != null)
+        if ($this->type != null) {
             return $this->type->name;
+        }
         return 'Нет данных';
     }
+
+    public function getCity()
+    {
+        if ($this->city != null) {
+            return $this->city->name;
+        }
+        return 'Нет данных';
+    }
+
     public function getStatus()
     {
-        if ($this->status != null)
+        if ($this->status != null) {
             return $this->status->name;
+        }
         return 'Нет данных';
     }
 
     public function getMileage()
     {
-        if ($this->mileage != null)
+        if ($this->mileage != null) {
             return $this->mileage;
-        return 'Нет данных';
-    }
-    public function getTransmission()
-    {
-        if ($this->transmission != null)
-            return $this->transmission;
-        return 'Нет данных';
-    }
-    public function getDrive()
-    {
-        if ($this->drive != null)
-            return $this->drive;
-        return 'Нет данных';
-    }
-    public function getFuel()
-    {
-        if ($this->fuel != null)
-            return $this->fuel;
-        return 'Нет данных';
-    }
-    public function getYear()
-    {
-        if ($this->year != null)
-            return $this->year;
-        return 'Нет данных';
-    }
-    public function getPrice()
-    {
-        if ($this->price != null) {
-            return number_format($this->price, 0, ',' ,' ');
         }
         return 'Нет данных';
     }
+
+    public function getTransmission()
+    {
+        if ($this->transmission != null) {
+            return $this->transmission;
+        }
+        return 'Нет данных';
+    }
+
+    public function getDrive()
+    {
+        if ($this->drive != null) {
+            return $this->drive;
+        }
+        return 'Нет данных';
+    }
+
+    public function getFuel()
+    {
+        if ($this->fuel != null) {
+            return $this->fuel;
+        }
+        return 'Нет данных';
+    }
+
+    public function getYear()
+    {
+        if ($this->year != null) {
+            return $this->year;
+        }
+        return 'Нет данных';
+    }
+
+    public function getPrice()
+    {
+        if ($this->price != null) {
+            return number_format($this->price, 0, ',', ' ');
+        }
+        return 'Нет данных';
+    }
+
     public function getDate()
     {
         return Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at)->format('d.m.Y H:i:s');
     }
+
     public function scopeDraft($query, $value)
     {
         return $query->where('draft', $value);
+    }
+
+    public function scopeCity($query, $value)
+    {
+        if ($value) {
+            return $query->Where('city_id', $value);
+        }
+        return $query;
+    }
+
+    public function scopeCategory($query, $value)
+    {
+        if ($value) {
+            return $query->WhereIn('type_id', $value);
+        }
+        return $query;
+    }
+
+    public function scopeTextSearch($query, $value)
+    {
+        if ($value) {
+            return $query->where('name', 'like', "%{$value}%")
+                ->orWhere('slug', 'like', "%{$value}%");
+        }
+        return $query;
+    }
+
+    public function scopeDrive($query, $value)
+    {
+        switch ($value){
+            case 'Полный':
+                return $query->where('drive', 'Полный');
+            default:
+                return $query;
+        }
     }
 }
 

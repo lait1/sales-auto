@@ -31,6 +31,18 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Order extends Model
 {
+    protected $fillable = ['auto_id', 'client_id'];
+
+    public static function add($auto, $user)
+    {
+        $order = new static;
+        $order->client_id = $user;
+        $order->auto_id = $auto;
+        $order->save();
+        return $order;
+
+    }
+
     public function auto()
     {
         return $this->belongsTo(Auto::class);

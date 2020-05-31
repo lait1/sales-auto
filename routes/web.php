@@ -26,13 +26,12 @@ Route::group([
     Route::post('/register', 'AuthController@register')->name('register');
     Route::get('/login', 'AuthController@loginFormShow');
     Route::post('/login', 'AuthController@login')->name('login');
-
 });
 Route::group([
     'middleware' => 'auth:web',
-    'namespace' => 'Auth',
 ], function () {
-    Route::get('/logout', 'AuthController@logout');
+    Route::get('/logout', 'Auth\AuthController@logout');
+    Route::get('/buy/{id}', 'ClientController@buy');
 //    Route::get('/profile', 'ProfileController@index');
 //    Route::post('/profile', 'ProfileController@store');
 });

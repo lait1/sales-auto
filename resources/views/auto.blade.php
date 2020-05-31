@@ -2,6 +2,11 @@
 
 @section('content')
     <section class="car">
+        @if(session('status'))
+            <div class="alert alert-success">
+                {{session('status')}}
+            </div>
+        @endif
         <div class="car-header">
             <div class="car-header__main">
                 <div class="car-header__main-name">{{$auto->name}}</div>
@@ -72,7 +77,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="car__button">Купить</button>
+                <a href="/buy/{{$auto->id}}" class="car__button">Купить</a>
             </div>
         </div>
     </section>
