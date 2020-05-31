@@ -8,6 +8,7 @@ use App\Category;
 use App\City;
 use App\Post;
 use App\Status;
+use App\Type;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -62,4 +63,13 @@ class HomeController extends Controller
         return view('post', ['post' => $post]);
     }
 
+    public function search(Request $request)
+    {
+        $type = Type::where('category_id', $request->category)->pluck('id');
+
+        $auto = Auto::Draft(0)->City($request->city)->Category($type)->paginate(5);
+        return view('list', [
+            'auto' => $auto
+        ]);
+    }
 }

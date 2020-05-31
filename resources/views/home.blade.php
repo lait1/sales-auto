@@ -3,41 +3,83 @@
 @section('content')
 
     <section class="filter">
-        <div class="filter__select">
-            <select class="form-control city">
-                <option selected>Город</option>
-                @foreach($cities as $item)
-                    <option value="{{$item->id}}">{{$item->name}}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="filter__select">
-            <select class="form-control category">
-                <option selected>Категория</option>
-                @foreach($categories as $item)
-                    <option value="{{$item->id}}">{{$item->name}}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="filter__select">
-            <select class="form-control status">
-                <option selected>Статус</option>
-                @foreach($status as $item)
-                    <option value="{{$item->id}}">{{$item->name}}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="filter__select">
-            <select class="form-control price">
-                <option selected>Цена</option>
-                <option>2</option>
-            </select>
-        </div>
-        <div class="filter__search">
-            <input class="form-control search" type="text" placeholder="Поиск по объявлениям">
-            <a href="#" class="filter__search-link"><i class="fa fa-search" aria-hidden="true"></i></a>
+        <form action="/search" method="get">
+
+        <div class="filter__row">
+            <div class="filter__select">
+                <select class="form-control" name="city">
+                    <option disabled selected>Город</option>
+                    @foreach($cities as $item)
+                        <option value="{{$item->id}}">{{$item->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="filter__select">
+                <select class="form-control" name="category">
+                    <option disabled selected>Категория</option>
+                    @foreach($categories as $item)
+                        <option value="{{$item->id}}">{{$item->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="filter__select">
+                <input class="form-control price" type="text" name="price_from" placeholder="Цена от,">
+                <input class="form-control price" type="text" name="price_to" placeholder="до">
+            </div>
+            <div class="filter__search">
+                <input class="form-control search" type="text" name="search_text" placeholder="Поиск по объявлениям">
+                <button type="submit" class="filter__search-link"><i class="fa fa-search" aria-hidden="true"></i></button>
+            </div>
         </div>
 
+    <a href="#" class="filter__show-all">Все фильтры ></a>
+        <div class="filter__row">
+            <div class="filter__select">
+                <select class="form-control" name="fuel">
+                    <option disabled selected="selected">Топливо</option>
+                    <option value="1">Дизель</option>
+                    <option value="2">Бензин</option>
+                </select>
+            </div>
+            <div class="filter__select">
+                <select class="form-control" name="transmission">
+                    <option disabled selected>Коробка передач</option>
+                    <option value="1">Механическая</option>
+                    <option value="2">Автомат</option>
+                </select>
+            </div>
+            <div class="filter__select">
+                <select class="form-control" name="drive">
+                    <option disabled selected>Привод</option>
+                    <option value="1">Передний</option>
+                    <option value="2">Задний</option>
+                    <option value="3">Полный</option>
+
+                </select>
+            </div>
+            <div class="filter__select">
+                <select class="form-control status" name="status">
+                    <option disabled selected>Статус</option>
+                    @foreach($status as $item)
+                        <option value="{{$item->id}}">{{$item->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="filter__select">
+                <input class="form-control price" type="text" name="year_from" placeholder="Год от,">
+                <input class="form-control price" type="text" name="year_to" placeholder="до">
+            </div>
+        </div>
+        <div class="filter__row">
+            <input class="btn btn-secondary" type="reset" value="Сброс">
+            <input class="btn btn-success" type="submit" value="Показать">
+        </div>
+        {{--<div class="filter__search">--}}
+        {{--<input class="form-control search" type="text" placeholder="Поиск по объявлениям">--}}
+        {{--<a href="#" class="filter__search-link"><i class="fa fa-search" aria-hidden="true"></i></a>--}}
+        {{--</div>--}}
+        </form>
     </section>
     <section class="brand">
         <h2 class="brand__title">Марки авто</h2>
@@ -68,8 +110,11 @@
                         <img src="img/car-example.jpg" alt="TACHKA">
                     </a>
                     <a href="/auto/{{$item->slug}}" class="new-sales__auto-name">{{$item->name}}</a>
-                    <div class="new-sales__auto-price"><span>{{$item->getPrice()}} <i class="fa fa-rub" aria-hidden="true"></i></span></div>
-                    <div class="new-sales__auto-description">{{$item->mileage}} км, {{$item->year}} год, {{$item->transmission}}, {{$item->drive}}, {{$item->fuel}}
+                    <div class="new-sales__auto-price"><span>{{$item->getPrice()}} <i class="fa fa-rub"
+                                                                                      aria-hidden="true"></i></span>
+                    </div>
+                    <div class="new-sales__auto-description">{{$item->getMileage()}} км, {{$item->getYear()}}
+                        год, {{$item->getTransmission()}}, {{$item->getDrive()}}, {{$item->getFuel()}}
                     </div>
                 </div>
             @endforeach
@@ -80,15 +125,17 @@
         <div class="article__content">
             @foreach($recentPost as $item)
                 @if ($loop->first)
-                <a href="/post/{{$item->slug}}" class="article__block big" style='background-image: url("/upload/post/{{$item->image}}")'>
-                    <span class="article__block-title">{{$item->title}}</span>
-                </a>
+                    <a href="/post/{{$item->slug}}" class="article__block big"
+                       style='background-image: url("/upload/post/{{$item->image}}")'>
+                        <span class="article__block-title">{{$item->title}}</span>
+                    </a>
                     @continue
                 @endif
-                <a href="/post/{{$item->slug}}" class="article__block " style='background-image: url("/upload/post/{{$item->image}}")'>
+                <a href="/post/{{$item->slug}}" class="article__block "
+                   style='background-image: url("/upload/post/{{$item->image}}")'>
                     <span class="article__block-title">{{$item->title}}</span>
                 </a>
-                @endforeach
+            @endforeach
         </div>
     </section>
 

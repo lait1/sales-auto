@@ -12,12 +12,30 @@
 */
 
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/auto/{slug}', 'HomeController@auto');
 Route::get('/post/{slug}', 'HomeController@post');
 Route::get('/search', 'HomeController@search');
+
+Route::group([
+    'namespace' => 'Auth',
+], function () {
+    Route::get('/register', 'AuthController@registerFormShow');
+    Route::post('/register', 'AuthController@register')->name('register');
+    Route::get('/login', 'AuthController@loginFormShow');
+    Route::post('/login', 'AuthController@login')->name('login');
+
+});
+Route::group([
+    'middleware' => 'auth:web',
+    'namespace' => 'Auth',
+], function () {
+    Route::get('/logout', 'AuthController@logout');
+//    Route::get('/profile', 'ProfileController@index');
+//    Route::post('/profile', 'ProfileController@store');
+});
 
 
 Route::group(['prefix' => 'admin'], function () {
@@ -32,7 +50,7 @@ Route::group([
     'prefix' => 'api',
     'namespace' => 'api',
     'middleware' => 'auth:admin',
-], function (){
+], function () {
     Route::resource('category', 'CategoryController');
     Route::resource('type', 'TypeController');
     Route::resource('model', 'ModelCarController');
