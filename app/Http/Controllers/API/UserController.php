@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Validation\ValidationException;
 use Log;
@@ -99,4 +100,8 @@ class UserController extends Controller
         return response()->json($user->blocked);
     }
 
+    public function show()
+    {
+        return Auth::guard('admin')->user();
+    }
 }

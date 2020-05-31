@@ -19,6 +19,14 @@ Vue.component('Select2', Select2);
 import CKEditor from '@ckeditor/ckeditor5-vue';
 window.Vue.use( CKEditor );
 
+import Vuex from 'vuex';
+window.Vue.use(Vuex);
+const store =  new Vuex.Store({
+    state: {
+        user:{}
+    }
+});
+
 const router = new VueRouter({routes});
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -39,6 +47,7 @@ Vue.component('pagination', require('laravel-vue-pagination'));
 // });
 const app = new Vue({
     el: '#app',
-    router: router,
+    router,
+    store,
     render: h => h(App),
 });

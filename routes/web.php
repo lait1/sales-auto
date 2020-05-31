@@ -17,6 +17,7 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/auto/{slug}', 'HomeController@auto');
 Route::get('/post/{slug}', 'HomeController@post');
+Route::get('/search', 'HomeController@search');
 
 
 Route::group(['prefix' => 'admin'], function () {
@@ -43,6 +44,7 @@ Route::group([
 
     Route::resource('user', 'UserController');
     Route::get('user/blocked/{id}', 'UserController@blocked');
+    Route::get('user/access', "UserController@show");
 
     Route::get('role', 'RoleController@index');
     Route::resource('auto', 'AutoController');
