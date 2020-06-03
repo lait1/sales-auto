@@ -20,7 +20,11 @@
                         <td>{{item.id}}</td>
                         <td>{{item.auto}}</td>
                         <td>{{item.client}}</td>
-                        <td>{{item.username}}</td>
+                        <td>
+                            <span v-if="item.username">{{item.username}}</span>
+                            <button v-else @click="takeWork(item.id, index)" type="button" class="btn btn-success">Взять в работу</button>
+
+                        </td>
                         <td>
                             <div class="btn-group" role="group">
                                 <router-link :to="'/order/' +item.id+ '/edit'" class="fa fa-pencil">
@@ -71,6 +75,16 @@
                     this.orders = response.data.data;
                     this.laravelData = response.data;
                 })
+            },
+            takeWork(id, index){
+                axios.get(`/api/order/takework/${id}`)
+                    .then((response) => {
+                        this.orders[index].username = response.data;
+                    })
+                    .catch((error) => {
+                        console.log(error.response.data);
+                        alert("Ошибка Изменения");
+                    });
             },
             deleteOrder(id, index) {
                 if (confirm("Вы уверены?")) {

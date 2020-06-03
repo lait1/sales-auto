@@ -64,9 +64,19 @@ class Order extends Model
         return $this->user;
     }
 
+    public function setUser($value)
+    {
+        if ($value && $this->user_id==null) {
+            $this->user_id = $value;
+            $this->save();
+        }
+    }
+
     public function setComment($value)
     {
-        $this->comment = $value;
-        $this->save();
+        if ($value) {
+            $this->comment = $value;
+            $this->save();
+        }
     }
 }

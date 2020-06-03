@@ -15,12 +15,19 @@
 //Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/auto/{slug}', 'HomeController@auto');
+
+//Route::get('/auto', 'HomeController@auto');
+Route::get('/auto/{slug}', 'HomeController@autoShow');
+Route::get('/category/{slug}', 'HomeController@category');
+Route::post('/category/{slug}', 'HomeController@search');
+
 Route::get('/post/{slug}', 'HomeController@post');
-Route::get('/search', 'HomeController@search');
+Route::get('/filter', 'HomeController@filter');
+Route::get('/filter/getModel', 'HomeController@getModel');
 
 Route::group([
     'namespace' => 'Auth',
+    'middleware' => 'guest',
 ], function () {
     Route::get('/register', 'AuthController@registerFormShow');
     Route::post('/register', 'AuthController@register')->name('register');
@@ -32,6 +39,7 @@ Route::group([
 ], function () {
     Route::get('/logout', 'Auth\AuthController@logout');
     Route::get('/buy/{id}', 'ClientController@buy');
+    Route::get('/favorite/{id}', 'FavoriteController@store');
 //    Route::get('/profile', 'ProfileController@index');
 //    Route::post('/profile', 'ProfileController@store');
 });
@@ -70,6 +78,7 @@ Route::group([
     Route::delete('auto/photo/{id}/', 'AutoController@removePhoto');
 
     Route::resource('order', 'OrderController');
+    Route::get('order/takework/{id}', 'OrderController@takework');
     Route::resource('post', 'PostController');
     Route::get('post/draft/{id}', 'PostController@draft');
 });

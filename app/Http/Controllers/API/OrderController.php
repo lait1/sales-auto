@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Log;
 
 class OrderController extends Controller
@@ -16,15 +17,6 @@ class OrderController extends Controller
      */
     public function index()
     {
-//        $result =[];
-//        $orders = Order::all();
-//        foreach ($orders as $i => $order) {
-//            $result[$i]['client'] = $order->client;
-//            $result[$i]['auto'] = $order->auto;
-//            $result[$i]['user'] = $order->getUser();
-//            $result[$i] = $order->toArray();
-//
-//        }
         $result = Order::select('orders.*', 'autos.name as auto', 'clients.fio as client', 'users.name as username')
             ->leftJoin('users', 'users.id', '=', 'orders.user_id')
             ->leftJoin('clients', 'clients.id', '=', 'orders.client_id')
@@ -98,7 +90,7 @@ class OrderController extends Controller
     public function update(Request $request, Order $order)
     {
         try {
-//            $order->setUser($request->get('user_id'));
+
             $order->setComment($request->get('comment'));
             return $order;
         } catch (\Throwable $e) {
@@ -122,5 +114,11 @@ class OrderController extends Controller
             Log::error('Ошибка удаления заказа', $e->getMessage());
             return response()->json('Ошибка удаления', 404);
         }
+    }
+    public function takeWork($id)
+    {
+        $order = Order::find($id);
+        $order->setUser(Auth::guard('admin')->user()->id);
+        return $order->user->name;
     }
 }
