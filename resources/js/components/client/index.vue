@@ -23,7 +23,7 @@
                         <td>{{item.fio}}</td>
                         <td>{{item.phone}}</td>
                         <td>{{item.email}}</td>
-                        <td>{{item.city.name}}</td>
+                        <td>{{item.city}}</td>
                         <td>
                             <a @click.prevent="toggleBlock(item)" href="#"
                                v-bind:class="[item.blocked ? 'fa-check-square' : 'fa-square-o', 'fa' ]"></a>
@@ -40,6 +40,8 @@
                     </tbody>
                 </table>
             </div>
+            <pagination :data="laravelData" :limit="3" @pagination-change-page="update"></pagination>
+
         </div>
     </main>
 </template>
@@ -50,6 +52,7 @@
         data: function () {
             return {
                 clients: {},
+                laravelData: {},
             }
         },
         mounted() {
@@ -68,9 +71,10 @@
             //         this.clients = response.data;
             //     })
             // },
-            update: function () {
-                axios.get('/api/client').then((response) => {
-                    this.clients = response.data;
+            update(page = 1) {
+                axios.get('/api/client?page=' + page).then((response) => {
+                    this.clients = response.data.data;
+                    this.laravelData = response.data;
                 })
             },
             toggleBlock(item) {

@@ -12,18 +12,15 @@ class ClientController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Client[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function index()
     {
-        $result = [];
-        $clients = Client::all();
-        foreach ($clients as $i => $client) {
-            $result[$i]['city'] = $client->city;
-            $result[$i] = $client->toArray();
-
-        }
-        return $result;
+        $clients = Client::select('clients.id', 'fio', '.phone', 'email', 'blocked', 'cities.name as city')
+        ->leftJoin('cities', 'cities.id', '=', 'clients.city_id')
+        ->orderBy('clients.created_at', 'desc')
+        ->paginate(10);
+        return $clients;
     }
 
     /**
