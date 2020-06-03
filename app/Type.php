@@ -42,4 +42,29 @@ class Type extends Model
         $this->category_id = $id;
         $this->save();
     }
+
+    /**
+     * @param $value
+     * @return \Illuminate\Support\Collection|int|array|null
+     */
+    public static function getCategoryTypes($value)
+    {
+        if ($value) {
+            $category = Category::where('slug', $value)->firstOrFail();
+            if ($category->id ===1) {
+                return (array)$category->id;
+            }
+            return Type::where('category_id', $category->id)->pluck('id');
+        }
+        return null;
+    }
+
+    public static function getCurrentType()
+    {
+        $category = Category::getCurrentCategory();
+        return Type::where('category_id', $category->id)->get();
+
+
+
+    }
 }

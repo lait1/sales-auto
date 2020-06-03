@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Favorite extends Model
 {
+    protected $fillable = ['client_id', 'auto_id'];
     public function auto()
     {
         return $this->belongsTo(Auto::class);

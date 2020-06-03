@@ -25,6 +25,35 @@ main {
   height: 65px;
   justify-content: space-between;
 }
+.header__logo {
+  display: flex;
+  width: 15%;
+}
+.header__menu {
+  display: flex;
+  width: 50%;
+  justify-content: space-between;
+}
+.header__menu-link {
+  display: flex;
+  width: 20%;
+  border-bottom: 4px solid transparent;
+  color: #000;
+  align-items: center;
+  justify-content: center;
+}
+.header__menu-link:hover {
+  color: #0E3263;
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 4px solid #0E3263;
+}
+.header__menu .active {
+  color: #0E3263;
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 4px solid #0E3263;
+}
 .header__account {
   display: flex;
   align-items: center;
@@ -46,7 +75,7 @@ main {
 .filter {
   margin-top: 30px;
   display: flex;
-  height: 45px;
+  flex-direction: column;
 }
 .filter .form-control {
   border-radius: 0;
@@ -59,8 +88,16 @@ main {
   border-top-left-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
 }
+.filter__row {
+  display: flex;
+}
+.filter__show-all {
+  margin-top: 10px;
+}
 .filter__select {
-  min-width: 160px;
+  min-width: 185px;
+  height: 45px;
+  display: flex;
 }
 .filter__search {
   width: 100%;
@@ -72,6 +109,7 @@ main {
   font-size: 20px;
   width: 60px;
   height: 100%;
+  border: none;
   border-top-right-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
   display: flex;
@@ -89,6 +127,8 @@ main {
   font-size: 26px;
 }
 .brand__list {
+  height: 120px;
+  overflow: hidden;
   margin-top: 25px;
   display: flex;
   flex-direction: row;
@@ -161,6 +201,7 @@ main {
 }
 .new-sales__auto-img {
   display: flex;
+  height: 190px;
 }
 .new-sales__auto-img img {
   width: 100%;
@@ -368,12 +409,14 @@ footer {
   font-size: 26px;
   text-align: center;
   background: #FEDB31;
+  color: #000;
   border: 0;
   border-radius: 4px;
   padding: 17px;
   margin-top: 10px;
 }
 .car__button:hover {
+  text-decoration: none;
   background: #004584;
   color: #fff;
   transition: all 0.3s ease;
@@ -511,6 +554,7 @@ footer {
 .catalog-item__action-details {
   font-weight: 500;
   text-align: center;
+  color: #000;
   background: #FEDB31;
   border: 0;
   border-radius: 4px;
@@ -518,6 +562,7 @@ footer {
   margin-top: 10px;
 }
 .catalog-item__action-details:hover {
+  text-decoration: none;
   background: #004584;
   color: #fff;
   transition: all 0.3s ease;

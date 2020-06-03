@@ -17,7 +17,7 @@
                     <span class="date">{{$auto->getDate()}}</span>
                     {{--<span class="views"><i class="fa fa-eye" aria-hidden="true"></i> 59 (59 сегодня)</span>--}}
                 </div>
-                <a href="#" class="car-header__subtitle-favorite">
+                <a href="/favorite/{{$auto->id}}" class="car-header__subtitle-favorite">
                     Добавить в избранное
                     <i class="fa fa-heart" aria-hidden="true"></i>
                 </a>

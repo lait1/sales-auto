@@ -22,35 +22,7 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
-<header>
-    <div class="header container">
-        <div class="header__logo">
-            <a href="/"><img src="/img/logo.png" alt="Уралсиб"></a>
-
-        </div>
-        <div class="header__account">
-            @if(Auth::check())
-                <div class="header__account-favorite">
-                    <a href="/favorite" class="header__account-link"> <i class="fa fa-heart" aria-hidden="true"></i>
-                        Избранное</a>
-                </div>
-                <div class="header__account-login">
-                    <a href="/logout" class="header__account-link"> <i class="fa fa-sign-out" aria-hidden="true"></i>
-                        Выйти</a>
-                </div>
-            @else
-                <div class="header__account-login">
-                    <a href="/login" class="header__account-link"> <i class="fa fa-sign-in" aria-hidden="true"></i>
-                        Войти</a>
-                </div>
-                <div class="header__account-login">
-                    <a href="/register" class="header__account-link"> <i class="fa fa-sign-in" aria-hidden="true"></i>
-                        Зарегистрироваться</a>
-                </div>
-            @endif
-        </div>
-    </div>
-</header>
+@include('_header')
 <main class="container">
     @yield('content')
 </main>
@@ -61,8 +33,8 @@
         </div>
     </div>
 </footer>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
         crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"

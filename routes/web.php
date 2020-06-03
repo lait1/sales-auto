@@ -19,7 +19,7 @@ Route::get('/', 'HomeController@index')->name('home');
 //Route::get('/auto', 'HomeController@auto');
 Route::get('/auto/{slug}', 'HomeController@autoShow');
 Route::get('/category/{slug}', 'HomeController@category');
-Route::post('/category/{slug}', 'HomeController@search');
+Route::get('/category/{slug}/search', 'HomeController@filter');
 
 Route::get('/post/{slug}', 'HomeController@post');
 Route::get('/filter', 'HomeController@filter');

@@ -252,7 +252,14 @@ class Auto extends Model
     {
         return Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at)->format('d.m.Y H:i:s');
     }
-
+    public function getFirstImage()
+    {
+        if($this->image != null)
+        {
+            $image = $this->image->first();
+            return $image->name;
+        }
+    }
     public function scopeDraft($query, $value)
     {
         return $query->where('draft', $value);
@@ -268,12 +275,34 @@ class Auto extends Model
 
     public function scopeCategory($query, $value)
     {
-        if ($value) {
+        if ($value != null) {
             return $query->WhereIn('type_id', $value);
         }
         return $query;
     }
 
+    public function scopeType($query, $value)
+    {
+        if ($value != null) {
+            return $query->Where('type_id', $value);
+        }
+        return $query;
+    }
+
+    public function scopeBrand($query, $value)
+    {
+        if ($value != null) {
+            return $query->WhereIn('model_car_id', $value);
+        }
+        return $query;
+    }
+    public function scopeModel($query, $value)
+    {
+        if ($value != null) {
+            return $query->Where('model_car_id', $value);
+        }
+        return $query;
+    }
     public function scopeTextSearch($query, $value)
     {
         if ($value) {
@@ -285,12 +314,58 @@ class Auto extends Model
 
     public function scopeDrive($query, $value)
     {
-        switch ($value){
-            case 'Полный':
-                return $query->where('drive', 'Полный');
-            default:
-                return $query;
+        if ($value) {
+            return $query->where('drive', $value);
         }
+        return $query;
     }
+
+    public function scopeTransmission($query, $value)
+    {
+        if ($value) {
+            return $query->where('transmission', $value);
+        }
+        return $query;
+    }
+
+    public function scopeFuel($query, $value)
+    {
+        if ($value) {
+            return $query->where('fuel', $value);
+        }
+        return $query;
+    }
+
+    public function scopeStatus($query, $value)
+    {
+        if ($value) {
+            return $query->where('status_id', $value);
+        }
+        return $query;
+    }
+
+    public function scopeYear($query, $from, $to)
+    {
+        if ($from || $to) {
+            return $query->whereBetween('year', [$from, $to]);
+        }
+        return $query;
+    }
+
+    public function scopePrice($query, $from,  $to)
+    {
+        if ($from && $to) {
+            return $query->whereBetween('price', [(int)$from, (int)$to]);
+        }
+        if ($from){
+            return $query->where('price', '>', (int)$from);
+        }
+        if ($to){
+            return $query->where('price', '<', (int)$to);
+        }
+        return $query;
+    }
+
+
 }
 

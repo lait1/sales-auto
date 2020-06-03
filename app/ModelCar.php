@@ -29,6 +29,7 @@ class ModelCar extends Model
 {
     protected $fillable = ['name'];
 
+
     public function auto()
     {
         return $this->hasMany(Auto::class);
@@ -41,5 +42,12 @@ class ModelCar extends Model
     {
         $this->brand_id = $id;
         $this->save();
+    }
+    public static function getBrandModel($brand)
+    {
+        if ($brand) {
+            return ModelCar::where('brand_id', $brand)->pluck('id');
+        }
+        return null;
     }
 }
