@@ -25,13 +25,15 @@ $(document).ready(function () {
     // if($(this.val() != null)){
 
     // }
-    $('.brand__item-all').click(function (e) {
+    $('#show-all').click(function (e) {
         e.preventDefault();
         if ($('.brand__list').attr('style')){
             //TODO Не удаляет атрибут, почему?
             $('.brand__list').removeAttr('style');
+        }else{
+            $('.brand__list').css('height', '100%');
         }
-        $('.brand__list').css('height', '100%');
+
 
     });
     $('select[name=brand]').change(function () {

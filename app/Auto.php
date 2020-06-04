@@ -254,11 +254,12 @@ class Auto extends Model
     }
     public function getFirstImage()
     {
-        if($this->image != null)
+        if($this->image->first() != null)
         {
             $image = $this->image->first();
             return $image->name;
         }
+        return 'no-image.png';
     }
     public function scopeDraft($query, $value)
     {

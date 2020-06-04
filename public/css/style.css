@@ -58,7 +58,7 @@ main {
   display: flex;
   align-items: center;
 }
-.header__account-login {
+.header__account-login-in {
   margin-left: 50px;
 }
 .header__account-link {

@@ -39,9 +39,13 @@ Route::group([
 ], function () {
     Route::get('/logout', 'Auth\AuthController@logout');
     Route::get('/buy/{id}', 'ClientController@buy');
+    Route::get('/favorite', 'FavoriteController@index');
     Route::get('/favorite/{id}', 'FavoriteController@store');
-//    Route::get('/profile', 'ProfileController@index');
-//    Route::post('/profile', 'ProfileController@store');
+    Route::get('/favorite/{id}/delete', 'FavoriteController@destroy');
+
+
+    Route::get('/profile', 'ClientController@index');
+    Route::post('/profile', 'ClientController@edit');
 });
 
 
