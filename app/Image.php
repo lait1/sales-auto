@@ -60,7 +60,7 @@ class Image extends Model
             $constraint->aspectRatio();
             $constraint->upsize();
         })->save($path. $filename);
-        $img->resize(170, 130, function ($constraint){
+        $img->resize(255, 190, function ($constraint){
             $constraint->aspectRatio();
             $constraint->upsize();
         })->save($path. '/thumbnail/' . $filename);

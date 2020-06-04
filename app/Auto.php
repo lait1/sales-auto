@@ -176,6 +176,44 @@ class Auto extends Model
         $this->save();
     }
 
+    public static function getCurrentMetaTags()
+    {
+        if (request()->segment(1) == 'auto'){
+            $currentAuto = request()->segment(2);
+            $meta = Auto::select('title', 'keywords', 'seo_desc')->where('slug', $currentAuto)->first();
+            return $meta->toArray();
+        }
+        return [
+            'title' => config('app.name', 'Laravel'),
+            'seo_desc' => config('app.description', 'Laravel'),
+            'keywords' => '',
+        ];
+    }
+    public function getTitle()
+    {
+        if ($this->title)
+        {
+            return $this->title;
+        }
+        return config('app.name', 'Laravel');
+
+    }
+    public function getSeoDesc()
+    {
+        if ($this->seo_desc)
+        {
+            return $this->seo_desc;
+        }
+        return config('app.description', 'Laravel');
+    }
+    public function getKeywords()
+    {
+        if ($this->keywords)
+        {
+            return $this->keywords;
+        }
+        return '';
+    }
     public function getType()
     {
         if ($this->type != null) {

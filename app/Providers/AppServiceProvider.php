@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Auto;
 use App\Brand;
 use App\Category;
 use App\City;
@@ -50,5 +51,8 @@ class AppServiceProvider extends ServiceProvider
             $view->with('types',  Type::getCurrentType());
             $view->with('category',  Category::getCurrentCategory());
         });
-    }
+        view()->composer('meta', function ($view) {
+            $view->with('meta',  Auto::getCurrentMetaTags());
+        });
+        }
 }
