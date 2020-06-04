@@ -32,11 +32,12 @@ class BrandController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Brand|\Illuminate\Database\Eloquent\Model
      */
     public function store(Request $request)
     {
         $brand = Brand::create($request->all());
+        $brand->setIcon($request->file('icon'));
         return $brand;
     }
 
@@ -76,6 +77,7 @@ class BrandController extends Controller
     {
         $brand = Brand::findOrFail($id);
         $brand->update($request->all());
+        $brand->setIcon($request->file('icon'));
         return $brand;
     }
 
@@ -88,6 +90,11 @@ class BrandController extends Controller
     public function destroy($id)
     {
         $brand = Brand::findOrFail($id);
+
+        $filename = $brand->icon;
+        $path = public_path() . '/upload/';
+        unlink($path. '/brand/' . $filename);
+
         $brand->delete();
         return response()->json('The brand successfully deleted');
     }

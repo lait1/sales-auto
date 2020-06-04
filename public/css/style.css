@@ -123,6 +123,17 @@ main {
 .brand {
   margin-top: 70px;
 }
+.brand__image {
+  margin-top: 15px;
+  display: flex;
+}
+.brand__image-link {
+  width: 80px;
+  margin: 0 10px;
+}
+.brand__image-icon {
+  width: 100%;
+}
 .brand__title {
   font-size: 26px;
 }

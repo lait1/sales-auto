@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image as Picture;
 
 /**
  * App\Brand
@@ -39,5 +41,22 @@ class Brand extends Model
             $summ += $model->auto()->count();
         }
         return $summ;
+    }
+
+    public function setIcon($file)
+    {
+        if ($file == null){
+            return;
+        }
+        $path = public_path() . '/upload/brand/';
+        $filename = Str::random(20) . '.' . $file->getClientOriginalExtension();
+
+        $img = Picture::make($file);
+        $img->resize(80, 80, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();
+        })->save($path . $filename);
+        $this->icon = $filename;
+        $this->save();
     }
 }

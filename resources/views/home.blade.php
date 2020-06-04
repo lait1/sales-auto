@@ -4,6 +4,15 @@
     @include('_filter')
     <section class="brand">
         <h2 class="brand__title">Марки авто</h2>
+
+        <div class="brand__image">
+            @foreach($topBrand as $item)
+                <a href="/category/legkovye/search?brand={{$item->id}}" class="brand__image-link">
+                    <img src="/upload/brand/{{$item->icon}}" alt="" class="brand__image-icon">
+                </a>
+            @endforeach
+        </div>
+
         <div class="brand__list">
             @foreach($brands as $item)
                 <a href="/category/legkovye/search?brand={{$item->id}}" class="brand__item">
@@ -21,8 +30,8 @@
         <div class="new-sales__header">
             <h2 class="new-sales__title">Новые объявления</h2>
             {{--<div class="new-sales__arrow">--}}
-                {{--<a href="#" class="left"><i class="fa fa-angle-left fa-lg" aria-hidden="true"></i></a>--}}
-                {{--<a href="#" class="right"><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i></a>--}}
+            {{--<a href="#" class="left"><i class="fa fa-angle-left fa-lg" aria-hidden="true"></i></a>--}}
+            {{--<a href="#" class="right"><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i></a>--}}
             {{--</div>--}}
         </div>
         <div class="new-sales__list">

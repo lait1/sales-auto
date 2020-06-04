@@ -2,21 +2,31 @@
     <main class="container content">
         <button @click="$router.go(-1)" class="btn btn-primary btn-sm"><< Назад</button>
         <div class="content-header">
-            <h2>Модель</h2>
+            <h2>Бренд</h2>
         </div>
 
-        <form v-on:submit.prevent="updateBrand()" class="content-form">
+        <form v-on:submit.prevent="updateBrand()" class="content-form col-sm-6">
             <div class="form-group row">
-                <label for="inputName" class="col-sm-2 col-form-label content-form__label">Наименование</label>
-                <input type="text" class="form-control col-sm-4" id="inputName" v-bind:disabled="!is_active"
+                <label for="inputName" class="col-sm-4 col-form-label content-form__label">Наименование</label>
+                <input type="text" class="form-control col-sm-6" id="inputName" v-bind:disabled="!is_active"
                        v-model="brand.name">
                 <a href="#" @click.prevent="editBrand" class="content-form__edit"><i class="fa fa-pencil"></i></a>
             </div>
 
-            <div v-if="is_active" class="form-group col-sm-6 content-form__button">
-                <button type="submit" class="content-form__button-save">Сохранить</button>
-                <button @click="update()" class="content-form__button-cancel">Отменить</button>
-            </div>
+            <template v-if="is_active">
+                <div class="form-group row">
+                    <label for="inputImage" class="col-sm-2 col-form-label content-form__label">Фото</label>
+                    <input type="file" id="inputImage" @change="previewImages" name="image"
+                           accept="image/*">
+                    <div class="form__photo add-photo col-sm-6">
+                        <img :src="imagesData" width="100%">
+                    </div>
+                </div>
+                <div class="form-group content-form__button">
+                    <button type="submit" class="content-form__button-save">Сохранить</button>
+                    <button @click="update()" class="content-form__button-cancel">Отменить</button>
+                </div>
+            </template>
         </form>
         <div class="form-group">
             <h2>Модели</h2>
@@ -75,7 +85,9 @@
                 model: {},
                 is_active: false,
                 edit: '',
-                create: false
+                create: false,
+                imagesData: '',
+                pictures: '',
             }
         },
         name: "edit",
@@ -90,6 +102,10 @@
                         this.is_active = false;
                         this.create = false;
                         this.model = {};
+                        if (response.data.icon) {
+                            this.is_topBrand = true;
+                            this.imagesData = '/upload/brand/' + response.data.icon;
+                        }
                         this.brand = response.data;
                     })
                     .catch((response) => {
@@ -97,9 +113,14 @@
                     });
             },
             updateBrand() {
-                axios.patch(`/api/brand/${this.$route.params.id}`, this.brand)
+                let data = new FormData();
+                data.append('icon', this.pictures);
+                data.append('name', this.brand.name);
+                data.append('_method', 'PUT');
+                axios.post(`/api/brand/${this.$route.params.id}`, data)
                     .then((response) => {
                         this.is_active = false;
+                        this.pictures = '';
                     })
                     .catch((response) => {
                         alert("Ошибка Изменения");
@@ -107,6 +128,15 @@
             },
             editBrand() {
                 this.is_active = true;
+            },
+
+            previewImages: function (event) {
+                this.pictures = event.target.files[0];
+                var reader = new FileReader();
+                reader.onload = (e) => {
+                    this.imagesData = e.target.result;
+                };
+                reader.readAsDataURL(this.pictures);
             },
             addModel() {
                 this.model.brand_id = this.brand.id;

@@ -36,13 +36,14 @@ class HomeController extends Controller
 //        $categories = Category::all();
 //        $status = Status::all();
         $brands = Brand::all();
+        $topBrand = Brand::WhereNotNull('icon')->get();
         $recentPost = Post::where('draft', 0)->orderBy('created_at', 'desc')->take(3)->get();
 
         return view('home', [
             'recentAuto' => $recentAuto,
 //            'categories' => $categories,
 //            'cities' => $cities,
-//            'status' => $status,
+            'topBrand' => $topBrand,
             'brands' => $brands,
             'recentPost' => $recentPost,
         ]);

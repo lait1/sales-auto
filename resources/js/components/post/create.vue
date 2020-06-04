@@ -67,7 +67,6 @@
         methods: {
             previewImages: function (event) {
                 this.pictures = event.target.files[0];
-                // for (var i = 0; i < pictures.length; i++) {
                     var reader = new FileReader();
                     reader.onload = (e) => {
                         this.imagesData = e.target.result;
