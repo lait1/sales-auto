@@ -138,14 +138,19 @@
                         <input type="file" id="inputImage" multiple @change="previewImages" name="newfiles[]"
                                accept="image/*">
 
-                        <div class="form__photo add-photo">
+                        <!--<div class="form__photo add-photo">-->
+                        <draggable
+                        :list="imagesData"
+                        class="form__photo add-photo test"
+                        >
                             <div class="form__photo-thumbnail" v-for="(image, index) in imagesData">
                                 <img :src="/upload/ + image.name">
                                 <button @click.prevent="removePhoto(image.id, index)" type="button"
                                         v-bind:data-id="image.id"
                                         class="delete fa fa-remove"></button>
                             </div>
-                        </div>
+                        <!--</div>-->
+                        </draggable>
                     </div>
 
                     <div class="form-group row align-items-center">
@@ -192,8 +197,13 @@
 </template>
 
 <script>
+    import draggable from 'vuedraggable';
+
     export default {
         name: "create",
+        components: {
+            draggable,
+        },
         data() {
             return {
                 auto: {

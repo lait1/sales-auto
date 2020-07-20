@@ -28,5 +28,5 @@ export const routes = [
     {path: '/post/create',component: require('./components/post/create.vue').default},
     {path: '/post/:id/edit', component: require('./components/post/edit.vue').default},
 
-
+    {path: '/chat',component: require('./components/SocketChatComponent.vue').default},
 ];

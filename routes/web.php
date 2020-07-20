@@ -75,6 +75,9 @@ Route::group([
     Route::get('user/blocked/{id}', 'UserController@blocked');
     Route::get('user/access', "UserController@show");
 
+    Route::get('start/send-message', "AutoController@sendMessage");
+    Route::get('start/send-private-message', "AutoController@sendPrivateMessage");
+
     Route::get('role', 'RoleController@index');
     Route::resource('auto', 'AutoController');
     Route::get('auto/draft/{id}', 'AutoController@draft');

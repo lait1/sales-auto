@@ -8,10 +8,10 @@
             <div class="form-group row">
                 <label for="inputCategory" class="col-sm-2 col-form-label content-form__label">Категория</label>
                 <!--<select id="inputCategory" class="form-control col-sm-4" v-model="category">-->
-                    <!--<option disabled value="">Выберите категорию</option>-->
-                    <!--<template v-for="item in categories">-->
-                        <!--<option v-bind:value="item.id">{{item.name}}</option>-->
-                    <!--</template>-->
+                <!--<option disabled value="">Выберите категорию</option>-->
+                <!--<template v-for="item in categories">-->
+                <!--<option v-bind:value="item.id">{{item.name}}</option>-->
+                <!--</template>-->
                 <!--</select>-->
                 <Select2 id="inputCategory"
                          class="col-sm-4 p-0"
@@ -25,10 +25,10 @@
                     <div class="form-group row">
                         <label for="inputMarka" class="col-sm-2 col-form-label content-form__label">Марка</label>
                         <!--<select id="inputMarka" class="form-control col-sm-4" v-model="brand">-->
-                            <!--<option disabled value="">Выберите марку</option>-->
-                            <!--<template v-for="item in brands">-->
-                                <!--<option v-bind:value="item.id">{{item.name}}</option>-->
-                            <!--</template>-->
+                        <!--<option disabled value="">Выберите марку</option>-->
+                        <!--<template v-for="item in brands">-->
+                        <!--<option v-bind:value="item.id">{{item.name}}</option>-->
+                        <!--</template>-->
                         <!--</select>-->
                         <Select2 id="inputMarka"
                                  class="col-sm-4 p-0"
@@ -39,10 +39,10 @@
                     <div class="form-group row">
                         <label for="inputModel" class="col-sm-2 col-form-label content-form__label">Модель</label>
                         <!--<select id="inputModel" class="form-control col-sm-4" v-model="auto.modelcar_id">-->
-                            <!--<option disabled value="">Выберите модель</option>-->
-                            <!--<template v-for="item in model">-->
-                                <!--<option v-bind:value="item.id">{{item.name}}</option>-->
-                            <!--</template>-->
+                        <!--<option disabled value="">Выберите модель</option>-->
+                        <!--<template v-for="item in model">-->
+                        <!--<option v-bind:value="item.id">{{item.name}}</option>-->
+                        <!--</template>-->
                         <!--</select>-->
                         <Select2 id="inputModel"
                                  class="col-sm-4 p-0"
@@ -110,11 +110,11 @@
                     <div class="form-group row">
                         <label for="inputType" class="col-sm-2 col-form-label content-form__label">Подкатегория</label>
                         <!--<select id="inputType" class="form-control col-sm-4"-->
-                            <!--v-model="auto.type_id">-->
-                            <!--<option disabled value="">Выберите тип</option>-->
-                            <!--<template v-for="item in type">-->
-                                <!--<option v-bind:value="item.id">{{item.name}}</option>-->
-                            <!--</template>-->
+                        <!--v-model="auto.type_id">-->
+                        <!--<option disabled value="">Выберите тип</option>-->
+                        <!--<template v-for="item in type">-->
+                        <!--<option v-bind:value="item.id">{{item.name}}</option>-->
+                        <!--</template>-->
                         <!--</select>-->
                         <Select2 id="inputType"
                                  class="col-sm-4 p-0"
@@ -132,10 +132,10 @@
                     <div class="form-group row">
                         <label for="inputStatus" class="col-sm-2 col-form-label content-form__label">Статус</label>
                         <!--<select id="inputStatus" class="form-control col-sm-4" v-model="auto.status_id">-->
-                            <!--<option disabled value="">Выберите статус</option>-->
-                            <!--<template v-for="item in status">-->
-                                <!--<option v-bind:value="item.id">{{item.name}}</option>-->
-                            <!--</template>-->
+                        <!--<option disabled value="">Выберите статус</option>-->
+                        <!--<template v-for="item in status">-->
+                        <!--<option v-bind:value="item.id">{{item.name}}</option>-->
+                        <!--</template>-->
                         <!--</select>-->
                         <Select2 id="inputStatus"
                                  class="col-sm-4 p-0"
@@ -180,8 +180,11 @@
                         <label for="inputImage" class="col-sm-2 col-form-label content-form__label">Фото</label>
                         <input type="file" id="inputImage" multiple @change="previewImages" name="newfiles[]"
                                accept="image/*">
-
-                        <div class="form__photo add-photo">
+                        <draggable
+                                :list="imagesData"
+                                class="form__photo add-photo test"
+                        >
+                            <!--<div class="form__photo add-photo">-->
                             <div class="form__photo-thumbnail" v-for="(image, index) in imagesData">
                                 <img :src="/upload/ + image.name">
                                 <button @click.prevent="removePhoto(image.id, index)" type="button"
@@ -193,8 +196,9 @@
                             <!--<button type="button" data-photo="photo-id"-->
                             <!--class="delete fa fa-remove"></button>-->
                             <!--</div>-->
+                        </draggable>
 
-                        </div>
+                        <!--</div>-->
                     </div>
 
 
@@ -241,212 +245,216 @@
     </main>
 </template>
 `
-<script>
-    export default {
-        name: "edit",
-        data() {
-            return {
-                auto: {
-                    draft: 1
-                },
+<script> import draggable from 'vuedraggable';
 
-                categories: {},
-                category: '',
-                type: {},
+export default {
+    name: "edit",
+    components: {
+        draggable,
+    },
+    data() {
+        return {
+            auto: {
+                draft: 1
+            },
 
-                model: {},
-                brands: {},
-                brand: '',
+            categories: {},
+            category: '',
+            type: {},
 
-                cities: {},
-                status: {},
-                is_Seo: false,
-                is_created: false,
-                imagesData: []
+            model: {},
+            brands: {},
+            brand: '',
+
+            cities: {},
+            status: {},
+            is_Seo: false,
+            is_created: false,
+            imagesData: []
+        }
+    },
+    mounted() {
+        console.log('create Component mounted.');
+        this.getFirstData();
+    },
+    watch: {
+        category(val) {
+            if (val === 1) {
+                this.auto.type_id = 1;
+            } else {
+                this.getType(val);
             }
         },
-        mounted() {
-            console.log('create Component mounted.');
-            this.getFirstData();
+        brand(val) {
+            this.getModel(val)
         },
-        watch: {
-            category(val) {
-                if (val === 1) {
-                    this.auto.type_id = 1;
-                } else {
-                    this.getType(val);
-                }
-            },
-            brand(val) {
-                this.getModel(val)
-            },
-        },
-        methods: {
-            previewImages(event) {
-                // this.imagesData = [];
+    },
+    methods: {
+        previewImages(event) {
+            // this.imagesData = [];
 
-                let data = new FormData();
-                let pictures = event.target.files;
-                $.each(pictures, function (key, value) {
-                    data.append(key, value);
+            let data = new FormData();
+            let pictures = event.target.files;
+            $.each(pictures, function (key, value) {
+                data.append(key, value);
+            });
+            this.createPhoto(data);
+            // pictures.forEach(function (key, value) {
+            //     data.append(key, value);
+            // });
+            // for (let i = 0; i < pictures.length; i++) {
+            //     data.append(i, pictures[i]);
+
+            // let reader = new FileReader();
+            // reader.onload = (e) => {
+            //     this.imagesData.push(e.target.result);
+            // };
+            // reader.readAsDataURL(pictures[i]);
+            // frontImage.empty();
+            // if (!checkType(files[i])) {
+            //     this.value = '';
+            //     continue;
+            // }
+            // preview(files[i])
+            // }
+
+        },
+        createPhoto(file) {
+            axios.post(`/api/auto/photo/${this.auto.id}/create`, file)
+                .then((response) => {
+                    response.data.forEach(item => {
+                        this.imagesData.push(item);
+                    });
+                })
+                .catch((response) => {
+                    alert("Ошибка");
                 });
-                this.createPhoto(data);
-                // pictures.forEach(function (key, value) {
-                //     data.append(key, value);
-                // });
-                // for (let i = 0; i < pictures.length; i++) {
-                //     data.append(i, pictures[i]);
+        },
+        removePhoto(id, index) {
+            axios.delete(`/api/auto/photo/${id}`)
+                .then((response) => {
+                    console.log('delete photo');
+                    this.imagesData.splice(index, 1);
+                })
+                .catch((response) => {
+                    alert("Ошибка");
+                });
+        },
+        updateAuto() {
+            axios.patch(`/api/auto/${this.auto.id}`, this.auto)
+                .then((response) => {
+                    this.$router.push({path: '/auto'});
+                })
+                .catch((response) => {
+                    alert("Ошибка");
+                });
 
-                // let reader = new FileReader();
-                // reader.onload = (e) => {
-                //     this.imagesData.push(e.target.result);
-                // };
-                // reader.readAsDataURL(pictures[i]);
-                // frontImage.empty();
-                // if (!checkType(files[i])) {
-                //     this.value = '';
-                //     continue;
-                // }
-                // preview(files[i])
-                // }
-
-            },
-            createPhoto(file) {
-                axios.post(`/api/auto/photo/${this.auto.id}/create`, file)
-                    .then((response) => {
-                        response.data.forEach(item => {
-                            this.imagesData.push(item);
-                        });
-                    })
-                    .catch((response) => {
-                        alert("Ошибка");
+        },
+        getFirstData() {
+            this.getCategory();
+            this.getCity();
+            this.getStatus();
+            this.getBrand();
+            this.getAuto();
+        },
+        getAuto() {
+            axios.get(`/api/auto/${this.$route.params.id}/edit/`)
+                .then((response) => {
+                    this.auto = response.data;
+                    this.category = response.data.category_id;
+                    this.imagesData = response.data.image;
+                    if (!!response.data.brand_id) {
+                        this.brand = response.data.brand_id;
+                    }
+                })
+        },
+        getCity() {
+            axios.get(`/api/city/`)
+                .then((response) => {
+                    response.data.map(function (obj) {
+                        obj.text = obj.text || obj.name;
                     });
-            },
-            removePhoto(id, index) {
-                axios.delete(`/api/auto/photo/${id}`)
-                    .then((response) => {
-                        console.log('delete photo');
-                        this.imagesData.splice(index, 1);
-                    })
-                    .catch((response) => {
-                        alert("Ошибка");
+                    this.cities = response.data;
+                })
+        },
+        getStatus() {
+            axios.get(`/api/status/`)
+                .then((response) => {
+                    response.data.map(function (obj) {
+                        obj.text = obj.text || obj.name;
                     });
-            },
-            updateAuto() {
-                axios.patch(`/api/auto/${this.auto.id}`, this.auto)
-                    .then((response) => {
-                        this.$router.push({path: '/auto'});
-                    })
-                    .catch((response) => {
-                        alert("Ошибка");
+                    this.status = response.data;
+                })
+        },
+        getCategory() {
+            axios.get(`/api/category/`)
+                .then((response) => {
+                    response.data.map(function (obj) {
+                        obj.text = obj.text || obj.name;
                     });
-
-            },
-            getFirstData() {
-                this.getCategory();
-                this.getCity();
-                this.getStatus();
-                this.getBrand();
-                this.getAuto();
-            },
-            getAuto() {
-                axios.get(`/api/auto/${this.$route.params.id}/edit/`)
-                    .then((response) => {
-                        this.auto = response.data;
-                        this.category = response.data.category_id;
-                        this.imagesData = response.data.image;
-                        if (!!response.data.brand_id) {
-                            this.brand = response.data.brand_id;
-                        }
-                    })
-            },
-            getCity() {
-                axios.get(`/api/city/`)
-                    .then((response) => {
-                        response.data.map(function (obj) {
-                            obj.text = obj.text || obj.name;
-                        });
-                        this.cities = response.data;
-                    })
-            },
-            getStatus() {
-                axios.get(`/api/status/`)
-                    .then((response) => {
-                        response.data.map(function (obj) {
-                            obj.text = obj.text || obj.name;
-                        });
-                        this.status = response.data;
-                    })
-            },
-            getCategory() {
-                axios.get(`/api/category/`)
-                    .then((response) => {
-                        response.data.map(function (obj) {
-                            obj.text = obj.text || obj.name;
-                        });
-                        this.categories = response.data;
-                    })
-            },
-            getType(category) {
-                axios.get(`/api/category/${category}`)
-                    .then((response) => {
-                        response.data.map(function (obj) {
-                            obj.text = obj.text || obj.name;
-                        });
-                        this.type = response.data;
+                    this.categories = response.data;
+                })
+        },
+        getType(category) {
+            axios.get(`/api/category/${category}`)
+                .then((response) => {
+                    response.data.map(function (obj) {
+                        obj.text = obj.text || obj.name;
                     });
-            },
-            getBrand() {
-                axios.get(`/api/brand`)
-                    .then((response) => {
-                        response.data.map(function (obj) {
-                            obj.text = obj.text || obj.name;
-                        });
-                        this.brands = response.data;
+                    this.type = response.data;
+                });
+        },
+        getBrand() {
+            axios.get(`/api/brand`)
+                .then((response) => {
+                    response.data.map(function (obj) {
+                        obj.text = obj.text || obj.name;
                     });
-            },
-            getModel(brand) {
-                axios.get(`/api/brand/${brand}`)
-                    .then((response) => {
-                        response.data.map(function (obj) {
-                            obj.text = obj.text || obj.name;
-                        });
-                        this.model = response.data;
+                    this.brands = response.data;
+                });
+        },
+        getModel(brand) {
+            axios.get(`/api/brand/${brand}`)
+                .then((response) => {
+                    response.data.map(function (obj) {
+                        obj.text = obj.text || obj.name;
                     });
-            }
+                    this.model = response.data;
+                });
         }
     }
+}
 </script>
 
 <style lang="sass" scoped>
-.form__photo
-    display: flex
-    flex-direction: row
-    flex-wrap: wrap
-    &-thumbnail
-        margin: 5px
-        position: relative
-        &:hover img
-            filter: brightness(40%)
-        &:hover button
-            display: block
-        img
-            max-height: 130px
-            max-width: 170px
-            width: 100%
-            height: 100%
-            transition: .3s ease-in-out
-        button
-            position: absolute
-            right: 5px
-            top: 5px
-            color: #fff
-            background: transparent
-            border: none
-            font-size: 20px
-            display: none
+    .form__photo
+        display: flex
+        flex-direction: row
+        flex-wrap: wrap
+        &-thumbnail
+            margin: 5px
+            position: relative
+            &:hover img
+                filter: brightness(40%)
+            &:hover button
+                display: block
+            img
+                max-height: 130px
+                max-width: 170px
+                width: 100%
+                height: 100%
+                transition: .3s ease-in-out
+            button
+                position: absolute
+                right: 5px
+                top: 5px
+                color: #fff
+                background: transparent
+                border: none
+                font-size: 20px
+                display: none
 
-.select2
-    width: 100%
+        .select2
+            width: 100%
 
 </style>

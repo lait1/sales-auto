@@ -7,28 +7,19 @@ $(document).ready(function () {
         asNavFor: '.slider-nav'
     });
     $('.slider-nav').slick({
-        slidesToShow: 6,
+        slidesToShow: 4,
         slidesToScroll: 1,
         asNavFor: '.slider-for',
         // centerMode: true,
         focusOnSelect: true
     });
 
-// $('.new-sales__list').slick({
-//     slidesToShow: 4,
-//     slidesToScroll: 1,
-// });
-//
 
         $('select[name=brand]').trigger('change');
 
-    // if($(this.val() != null)){
-
-    // }
     $('#show-all').click(function (e) {
         e.preventDefault();
         if ($('.brand__list').attr('style')){
-            //TODO Не удаляет атрибут, почему?
             $('.brand__list').removeAttr('style');
         }else{
             $('.brand__list').css('height', '100%');

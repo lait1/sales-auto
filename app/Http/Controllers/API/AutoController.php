@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Auto;
+use App\Events\NewMessage;
+use App\Events\NewPrivateMessage;
 use App\Http\Controllers\Controller;
 use App\Image;
 use Auth;
@@ -130,10 +132,21 @@ class AutoController extends Controller
         $filename = $image->name;
 
         $path = public_path() . '/upload/';
-        unlink($path. $filename);
-        unlink($path. '/thumbnail/' . $filename);
+        unlink($path . $filename);
+        unlink($path . '/thumbnail/' . $filename);
 
         $image->delete();
 
     }
+
+    public function sendMessage(Request $request)
+    {
+        event(new NewMessage($request->get('message')));
+    }
+    public function sendPrivateMessage(Request $request)
+    {
+        event(new NewPrivateMessage($request->all()));
+        return $request->all();
+    }
+
 }

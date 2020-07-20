@@ -5,7 +5,7 @@
                 <a href="#"><img src="/img/logo.png" alt=""></a>
             </div>
             <div class="sidebar-user">
-                <div class="sidebar-user__name">{{getUserName()}}</div>
+                <div class="sidebar-user__name">{{currentUser.name}}</div>
                 <a href="#" class="sidebar-user__out"><i class="fa fa-cog"></i>Выйти</a>
             </div>
             <ul class="sidebar-menu">
@@ -30,6 +30,10 @@
                     <router-link to="/client" class="sidebar-menu__item-link"><i class="fa fa-address-card"></i>
                         <span>Клиенты</span></router-link>
                 </li>
+                <li class="sidebar-menu__item">
+                    <router-link to="/chat" class="sidebar-menu__item-link"><i class="fa fa-address-card"></i>
+                        <span>Чат</span></router-link>
+                </li>
                 <li class="sidebar-menu__item" v-if="isAdmin()">
                     <router-link to="/user" class="sidebar-menu__item-link"><i class="fa fa-users"></i> <span>Администраторы</span>
                     </router-link>
@@ -43,23 +47,22 @@
 </template>
 
 <script>
+
     export default {
         // todo:Спросить бекенд. что за пользователь и сохранить его данные и роль Vuex
         mounted() {
             console.log('Index Component mounted.');
-            this.getUser()
+            this.$store.dispatch('getCurrentUser');
+
+        },
+        computed: {
+            currentUser(){
+                return this.$store.getters.currentUser;
+            },
         },
         methods: {
-            getUser() {
-                axios.get('/api/user/access').then((response) => {
-                    this.$store.state.user = response.data;
-                })
-            },
-            getUserName() {
-                return this.$store.state.user.name
-            },
             isAdmin() {
-                return this.$store.state.user.role_id === 1;
+                return this.currentUser.role_id === 1;
             }
         }
     }

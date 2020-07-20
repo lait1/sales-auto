@@ -10,21 +10,43 @@ window.Vue = require('vue');
 import VueRouter from 'vue-router';
 import App from './App.vue';
 import {routes} from './routes';
+
 window.Vue.use(VueRouter);
 
 import Select2 from 'v-select2-component';
 import '@ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4.min.css';
+
 Vue.component('Select2', Select2);
 
 import CKEditor from '@ckeditor/ckeditor5-vue';
-window.Vue.use( CKEditor );
+
+window.Vue.use(CKEditor);
 
 import Vuex from 'vuex';
+
 window.Vue.use(Vuex);
-const store =  new Vuex.Store({
+const store = new Vuex.Store({
     state: {
-        user:{}
+        user: {}
+    },
+    mutations: {
+        LOAD_CURRENT_USER(state, data) {
+            state.user = data
+        },
+    },
+    actions: {
+        getCurrentUser({commit}) {
+            axios.get('/api/user/access').then((response) => {
+                commit('LOAD_CURRENT_USER', response.data);
+            }).catch((response) => {
+                alert("Ошибка");
+            });
+        }
+    },
+    getters: {
+        currentUser: state => state.user,
     }
+
 });
 
 const router = new VueRouter({routes});
