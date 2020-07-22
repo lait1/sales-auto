@@ -24,6 +24,7 @@ Route::get('/category/{slug}/search', 'HomeController@filter');
 Route::get('/post/{slug}', 'HomeController@post');
 Route::get('/filter', 'HomeController@filter');
 Route::get('/filter/getModel', 'HomeController@getModel');
+//Route::post('messages', "ClientController@sendPrivateMessageEcho");
 
 Route::group([
     'namespace' => 'Auth',
@@ -45,6 +46,10 @@ Route::group([
 
 
     Route::get('/profile', 'ClientController@index');
+    Route::get('/profile/messenger', 'ClientController@listRooms');
+    Route::get('/profile/messenger/room/{id}', 'ClientController@getRoom');
+    Route::get('messages', "ClientController@sendPrivateMessageEcho");
+
     Route::post('/profile', 'ClientController@edit');
 });
 
@@ -77,6 +82,9 @@ Route::group([
 
     Route::get('start/send-message', "AutoController@sendMessage");
     Route::get('start/send-private-message', "AutoController@sendPrivateMessage");
+    Route::post('start/send-message-echo', "AutoController@sendMessageEcho");
+    Route::resource('room', "RoomController");
+    Route::get('messages', "AutoController@sendPrivateMessageEcho");
 
     Route::get('role', 'RoleController@index');
     Route::resource('auto', 'AutoController');

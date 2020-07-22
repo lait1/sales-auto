@@ -9,22 +9,4 @@
   font-size: 14px;
 }
 
-.table__row-edit {
-  display: flex;
-  align-items: center;
-}
-.table .delete {
-  background: transparent;
-  border: none;
-  color: #337ab7;
-  padding: 0;
-}
-.table .fa:before {
-  font-size: 20px;
-  margin-left: 10px;
-}
-.table th:last-child {
-  width: 100px;
-}
-
 /*# sourceMappingURL=table.css.map */

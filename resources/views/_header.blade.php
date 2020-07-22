@@ -29,6 +29,7 @@
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <a href="/favorite" class="dropdown-item">Избранное</a>
                     <a href="/profile" class="dropdown-item">Профиль</a>
+                    <a href="/profile/messenger" class="dropdown-item">Сообщения</a>
 
                     <div class="dropdown-divider"></div>
                     <a href="/logout" class="dropdown-item">Выйти</a>

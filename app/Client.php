@@ -79,7 +79,10 @@ class Client extends Authenticatable
     {
         return $this->belongsTo(City::class);
     }
-
+    public function room()
+    {
+        return $this->hasMany(Room::class);
+    }
     public function generatePassword($password)
     {
         if ($password != null) {

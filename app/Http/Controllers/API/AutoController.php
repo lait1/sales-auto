@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\API;
 
 use App\Auto;
+use App\Events\Message;
 use App\Events\NewMessage;
 use App\Events\NewPrivateMessage;
+use App\Events\PrivateMessage;
 use App\Http\Controllers\Controller;
 use App\Image;
+use App\Room;
 use Auth;
 use Illuminate\Http\Request;
 use Log;
@@ -149,4 +152,12 @@ class AutoController extends Controller
         return $request->all();
     }
 
+    public function sendMessageEcho(Request $request)
+    {
+        event(new Message($request->get('message')));
+    }
+    public function sendPrivateMessageEcho(Request $request)
+    {
+        event(new PrivateMessage($request->all()));
+    }
 }
